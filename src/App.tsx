@@ -205,6 +205,7 @@ export default function Home() {
   const [selectedBenefitSpot, setSelectedBenefitSpot] = useState<CardBenefitSpot | null>(null)
   const [selectedKeywordBenefit, setSelectedKeywordBenefit] = useState<CardBenefit | null>(null)
   const [isBetterCardSheetOpen, setIsBetterCardSheetOpen] = useState<boolean>(false)
+  const [isCompanyListExpanded, setIsCompanyListExpanded] = useState<boolean>(false)
   const ref = useRef<SheetRef>(null);
   const snapTo = (i: number): void => ref.current?.snapTo(i);
 
@@ -277,7 +278,14 @@ export default function Home() {
         className="bottomSheet"
         disableDismiss
       >
-        <Sheet.Container style={{ zIndex: 1000, boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)', borderRadius: '18px 18px 0px 0px' }}>
+        <Sheet.Container
+          style={{
+            zIndex: 1000,
+            boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
+            borderRadius: '18px 18px 0px 0px'
+          }}
+          className="max-h-[681px]"
+        >
           <Sheet.Header />
           <Sheet.Content>
             {selectedBenefit === 'place' ? (
@@ -354,7 +362,7 @@ export default function Home() {
                     <div className="flex items-center justify-between px-5 pt-2 pb-7 mb-4 border-b border-[#F4F4F4]">
                       <div className="font-semibold text-lg leading-[25px]">카드 등록하고<br />슬기로운 소비생활 시작하기</div>
                       <div
-                        className="bg-[#E3EEFF] rounded-full leading-none px-3 py-[9px] font-semibold text-[15px] text-[#0D58BB] h-9"
+                        className="bg-[#E3EEFF] rounded-full leading-[18px] px-3 py-[9px] font-semibold text-[15px] text-[#0D58BB] h-9"
                         onClick={() => {
                           setIsCardRegistrationVisible(true)
                         }}
@@ -366,7 +374,7 @@ export default function Home() {
                     {keywords.map((keyword) => (
                       <div
                         key={keyword}
-                        className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full"
+                        className="bg-[#F7F8F8] px-3.5 py-[11px] h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full leading-[18px]"
                         onClick={() => {
                           setSelectedKeyword(keyword)
                           setIsKeywordSheetOpen(true)
@@ -376,7 +384,7 @@ export default function Home() {
                     ))}
                   </div>
                   <div className="flex justify-center items-center rounded-[20px] mx-5 h-[81px] bg-[#F3F3F3] text-[#5A5B64] text-[15px] leading-[-1%]">광고 영역입니다.</div>
-                  <img src={eventBannerImg} width="375" height="300" alt="이벤트 배너" />
+                  <img src={eventBannerImg} width="375" height="300" alt="이벤트 배너" className="w-full" />
                 </div>
 
                 {selectedSpot && (
@@ -448,18 +456,37 @@ export default function Home() {
                   <div className="font-semibold text-lg tracking-[-2%] mb-4 pl-5">카드 맞춤 장소찾기</div>
                   <div className="flex items-center mx-5 mb-[11px]">
                     <div className="w-[55px] font-semibold shrink-0 text-sm mr-2.5">카드사</div>
-                    <div className="flex overflow-x-scroll space-x-1.5">
-                      {companies.map((company) => (
-                        <div key={company} className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9">{company}</div>
-                      ))}
+                    <div className="flex-1">
+                      {!isCompanyListExpanded && (
+                        <div className="flex overflow-x-scroll space-x-1.5 pr-2">
+                          {companies.map((company) => (
+                            <div key={company} className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4">{company}</div>
+                          ))}
+                        </div>
+                      )}
+                      {isCompanyListExpanded && (
+                        <div className="flex flex-wrap gap-2 w-full">
+                          {companies.map((company) => (
+                            <div key={company} className="rounded-full bg-[#F7F8F8] px-2 py-2 text-xs shrink-0 h-9 leading-5 flex items-center justify-center text-center font-medium text-[#5A5B64]">{company}</div>
+                          ))}
+                        </div>
+                      )}
                     </div>
+                    <button
+                      onClick={() => setIsCompanyListExpanded(!isCompanyListExpanded)}
+                      className={`shrink-0 ml-2 flex items-center justify-center w-6 h-6 rounded-full hover:bg-[#F3F3F3] transition-transform ${isCompanyListExpanded ? 'rotate-180' : ''}`}
+                    >
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 7.5L10 12.5L15 7.5" stroke="#6D727A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
                   </div>
                   <div className="flex mb-[17px] items-center mx-5">
                     <div className="w-[55px] font-semibold shrink-0 text-sm mr-2.5">카드 유형</div>
                     <div className="flex overflow-x-scroll space-x-1.5">
-                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9">전체</div>
-                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9">보유카드</div>
-                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9">추천카드</div>
+                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4">전체</div>
+                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4">보유카드</div>
+                      <div className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4">추천카드</div>
                     </div>
                   </div>
                   <hr className="border-[3.5px] border-[#F4F4F4] mb-5" />
@@ -577,10 +604,10 @@ export default function Home() {
             setIsKeywordSheetOpen(false)
             setSelectedKeyword('')
           }}
-          snapPoints={[0, 200, 1]}
+          snapPoints={[0, 531, 1]}
           initialSnap={1}
         >
-          <Sheet.Container>
+          <Sheet.Container className="max-h-[531px]">
             <Sheet.Header />
             <Sheet.Content>
               {!selectedKeywordSpot ? (

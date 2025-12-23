@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import arrowLeft from '@/assets/images/icons/arrow-left.png'
 import x from '@/assets/images/icons/x.png'
+import card2 from '@/assets/images/card-2.png'
 import card3 from '@/assets/images/card-3.png'
 
 const initialCards = [
@@ -12,62 +13,62 @@ const initialCards = [
     company: 'KB 국민카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: true,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: true,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -77,17 +78,17 @@ const initialCards = [
     company: '신한카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -97,17 +98,17 @@ const initialCards = [
     company: '삼성카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -117,17 +118,17 @@ const initialCards = [
     company: '헌대카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -137,17 +138,17 @@ const initialCards = [
     company: '롯데카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -157,17 +158,17 @@ const initialCards = [
     company: '하나카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -177,17 +178,17 @@ const initialCards = [
     company: '우리카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -197,17 +198,17 @@ const initialCards = [
     company: 'BC카드',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -217,17 +218,17 @@ const initialCards = [
     company: '카카오뱅크',
     cards: [
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 국민 CLiP 카드',
         selected: false,
       },
       {
-        image: '/images/card-2.png',
+        image: card2,
         name: 'KB 청춘대로 톡톡카드',
         selected: false,
       },
@@ -382,13 +383,13 @@ export default function CardRegistration({ setIsVisible }: CardRegistrationProps
                   선택한 카드 <span className="text-[#0B0D0F]">{getSelectedCards().length}</span>
                 </div>
                 <div className="max-h-[120px] overflow-y-auto mb-3">
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {getSelectedCards().map((card, idx) => (
                       <div
                         key={idx}
                         className="flex items-center justify-between bg-[#F3F3F3] rounded-full px-3 py-2 text-sm font-medium text-[#0B0D0F]"
                       >
-                        <span className="truncate">{card.name}</span>
+                        <span className="truncate tex-[#5A5B64]">{card.name}</span>
                         <img
                           src={x}
                           width="14"
