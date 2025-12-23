@@ -272,7 +272,7 @@ export default function Home() {
         ref={ref}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        snapPoints={[0, 150, 500, 1]}
+        snapPoints={[0, 494, 654, 1]}
         // detent="content"
         initialSnap={2}
         className="bottomSheet"
@@ -329,7 +329,7 @@ export default function Home() {
                           ))}
                         </div>
                       </div>
-                      <div className="divide-y divide-solid divide-[F4F4F4]">
+                      <div className="divide-y divide-solid divide-[#F4F4F4]">
                         {cards.map((card) => (
                           <div
                             key={card.spot}
@@ -455,26 +455,26 @@ export default function Home() {
                 <div className="mb-20 overflow-x-hidden overflow-y-scroll">
                   <div className="font-semibold text-lg tracking-[-2%] mb-4 pl-5">카드 맞춤 장소찾기</div>
                   <div className="flex items-center mx-5 mb-[11px]">
-                    <div className="w-[55px] font-semibold shrink-0 text-sm mr-2.5">카드사</div>
-                    <div className="flex-1">
-                      {!isCompanyListExpanded && (
-                        <div className="flex overflow-x-scroll space-x-1.5 pr-2">
+                    <div className={`w-[55px] font-semibold shrink-0 text-sm mr-2.5 ${isCompanyListExpanded ? 'self-start mt-2' : ''}`}>카드사</div>
+                    <div className="flex-1 min-w-0">
+                      {!isCompanyListExpanded ? (
+                        <div className="flex space-x-2 overflow-x-scroll">
                           {companies.map((company) => (
-                            <div key={company} className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4">{company}</div>
+                            <div key={company} className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm shrink-0 h-9 leading-4 whitespace-nowrap">{company}</div>
                           ))}
                         </div>
-                      )}
-                      {isCompanyListExpanded && (
-                        <div className="flex flex-wrap gap-2 w-full">
+                      ) : (
+                        <div className="flex flex-wrap gap-2">
                           {companies.map((company) => (
-                            <div key={company} className="rounded-full bg-[#F7F8F8] px-2 py-2 text-xs shrink-0 h-9 leading-5 flex items-center justify-center text-center font-medium text-[#5A5B64]">{company}</div>
+                            <div key={company} className="rounded-full bg-[#F7F8F8] px-3.5 py-2.5 text-sm h-9 leading-4 flex items-center justify-center text-center whitespace-nowrap">{company}</div>
                           ))}
                         </div>
                       )}
                     </div>
                     <button
                       onClick={() => setIsCompanyListExpanded(!isCompanyListExpanded)}
-                      className={`shrink-0 ml-2 flex items-center justify-center w-6 h-6 rounded-full hover:bg-[#F3F3F3] transition-transform ${isCompanyListExpanded ? 'rotate-180' : ''}`}
+                      className={`bg-transparent shrink-0 ml-2 flex items-center justify-center w-[30px] h-[30px] rounded-full hover:bg-[#F3F3F3] transition-transform ${isCompanyListExpanded ? 'rotate-180' : ''}`}
+                      style={{ boxShadow: '0px 2px 6px 0px rgba(0, 0, 0, 0.08)' }}
                     >
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 7.5L10 12.5L15 7.5" stroke="#6D727A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -490,8 +490,8 @@ export default function Home() {
                     </div>
                   </div>
                   <hr className="border-[3.5px] border-[#F4F4F4] mb-5" />
-                  <div className="ml-5 font-medium text-[15px] text-[#6D727A]">총 4개</div>
-                  <div className="divide-y divide-solid divide-[F4F4F4]">
+                  <div className="ml-5 font-medium text-[15px] text-[#6D727A]">총 {ownedCards.length}개</div>
+                  <div className="divide-y divide-solid divide-[#F4F4F4]">
                     {ownedCards.map((card, i) => (
                       <div
                         key={card.name+i}
@@ -512,56 +512,204 @@ export default function Home() {
                 </div>
 
                 {selectedCard && (
-                  <div className="absolute top-0 bg-white w-full">
-                    <div className="px-[18px] flex items-center mb-[7px]">
-                      <img
-                        src={arrowLeftIcon}
-                        width="24"
-                        height="24"
-                        alt="뒤로가기"
-                        onClick={() => {
-                          setSelectedCard('')
-                          // snapTo(3)
-                        }}
-                      />
-                      <div className="ml-[5px] text-lg font-semibold">{selectedCard}</div>
-                      <div className="ml-auto rounded-full px-3 py-[7px] border border-[#EBEBEB] text-[#5A5B64] text-[13px] font-semibold">카드 상세</div>
+                  <>
+                    <div className="absolute top-0 bg-white w-full">
+                      <div className="px-[18px] flex items-center mb-[7px]">
+                        <img
+                          src={arrowLeftIcon}
+                          width="24"
+                          height="24"
+                          alt="뒤로가기"
+                          onClick={() => {
+                            setSelectedCard('')
+                            // snapTo(3)
+                          }}
+                        />
+                        <div className="ml-[5px] text-lg font-semibold">{selectedCard}</div>
+                        <div className="ml-auto rounded-full px-3 py-[7px] border border-[#EBEBEB] text-[#5A5B64] text-[13px] font-semibold">카드 상세</div>
+                      </div>
+                      <div className="divide-y divide-solid divide-[#F4F4F4]">
+                        {cardBenefits.map((benefit) => (
+                          <div key={benefit.category} className="mt-[27px]">
+                            <div className="flex items-start px-[18px] mb-[22px]">
+                              <div className="bg-[#F3F3F3] rounded-full px-[9px] py-[5px] font-semibold text-[15px]">{benefit.category}</div>
+                              <div className="ml-[31px]">
+                                <div className="text-[13px] text-[#6D727A] font-medium">{benefit.condition}</div>
+                                <div className="text-base font-semibold">{benefit.benefit}</div>
+                              </div>
+                            </div>
+                            <div
+                              className="mx-[18px] bg-[#0B0D0F] flex items-center justify-center text-white py-3 rounded-[10px] h-10 mb-3 cursor-pointer"
+                              onClick={() => setIsBetterCardSheetOpen(true)}
+                            >더 나은 혜택 카드 보기</div>
+                            {benefit.spots.map((spot, i) => (
+                              <div
+                                key={spot.name+i}
+                                className="flex items-center mx-[18px] rounded-[13px] bg-[#F8F8F8] border border-[#F4F4F4] px-2 py-3.5 mb-[7px] last:mb-[30px] cursor-pointer"
+                                onClick={() => {
+                                  setSelectedKeywordBenefit(benefit)
+                                  setSelectedBenefitSpot(spot)
+                                  snapTo(1)
+                                }}
+                              >
+                                <img src={spot.image} width="34" height="34" alt="" />
+                                <div className="flex-1 ml-[11px]">
+                                  <div className="font-semibold text-[13px] mb-[5px]">{spot.name}</div>
+                                  <div className="font-medium text-[13px] text-[#6D727A]">{spot.benefit}</div>
+                                </div>
+                                <div className="bg-white border border-[#EBEBEB] rounded-full px-2 py-1 font-medium text-[13px] text-[#5A5B64]">{spot.distance}</div>
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="divide-y divide-solid divide-[F4F4F4]">
-                      {cardBenefits.map((benefit) => (
-                        <div key={benefit.category} className="mt-[27px]">
-                          <div className="flex items-start px-[18px] mb-[22px]">
-                            <div className="bg-[#F3F3F3] rounded-full px-[9px] py-[5px] font-semibold text-[15px]">{benefit.category}</div>
-                            <div className="ml-[31px]">
-                              <div className="text-[13px] text-[#6D727A] font-medium">{benefit.condition}</div>
-                              <div className="text-base font-semibold">{benefit.benefit}</div>
+
+                    {selectedKeywordBenefit && (
+                      <>
+                        {!selectedBenefitSpot ? (
+                          <div className="absolute top-0 bg-white w-full overflow-x-hidden overflow-y-scroll">
+                            <div className="px-[18px] flex items-center justify-between mb-4">
+                              <img
+                                src={arrowLeftIcon}
+                                width="24"
+                                height="24"
+                                alt="뒤로가기"
+                                className="cursor-pointer"
+                                onClick={() => setSelectedKeywordBenefit(null)}
+                              />
+                              <div className="flex items-center space-x-[7px]">
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={directionsIcon} width="20" height="20" alt="" />
+                                </div>
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={callIcon} width="20" height="20" alt="" />
+                                </div>
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={bookmarkIcon} width="20" height="20" alt="" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="px-[18px] leading-none mb-4">
+                              <div className="text-xl font-semibold mb-1">{selectedKeywordSpot}</div>
+                              <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
+                                <div>{selectedKeywordBenefit.category}</div>
+                                <img src={grayDotIcon} width="3" height="3" alt="" />
+                                <div>90m</div>
+                              </div>
+                              <div className="text-sm text-[#6D727A] mb-px">서울 광진구 아차산로 30길 26</div>
+                              <div className="flex items-center space-x-1.5 text-sm font-medium">
+                                <div>영업중</div>
+                                <img src={grayDotIcon} width="3" height="3" alt="" />
+                                <div className="text-[#6D727A]">00:00 - 24:00</div>
+                              </div>
+                            </div>
+
+                            <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                              {spotCards.map((card) => (
+                                <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                                  <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
+                                  <div className="ml-3.5 font-medium">
+                                    <div className="text-xs text-[#B2B2B2]">{card.company}</div>
+                                    <div className="text-[13px] text-[#6D727A]">{card.name}</div>
+                                    <div className="text-[15px] font-semibold">{card.benefit}</div>
+                                  </div>
+                                  <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                              {photos.map((photo, i) => (
+                                <img key={photo+i} src={photo} width="149" height="100" alt="" />
+                              ))}
+                            </div>
+
+                            <div className="divide-y divide-solid divide-[#F4F4F4]">
+                              {selectedKeywordBenefit.spots.map((spot, i) => (
+                                <div
+                                  key={spot.name+i}
+                                  className="flex items-center mx-[18px] rounded-[13px] bg-[#F8F8F8] border border-[#F4F4F4] px-2 py-3.5 mb-[7px] last:mb-[30px] cursor-pointer"
+                                  onClick={() => setSelectedBenefitSpot(spot)}
+                                >
+                                  <img src={spot.image} width="34" height="34" alt="" />
+                                  <div className="flex-1 ml-[11px]">
+                                    <div className="font-semibold text-[13px]">{spot.name}</div>
+                                    <div className="font-medium text-[13px] text-[#6D727A]">{spot.benefit}</div>
+                                  </div>
+                                  <div className="bg-white border border-[#EBEBEB] rounded-full px-2 py-1 font-medium text-[13px] text-[#5A5B64]">{spot.distance}</div>
+                                </div>
+                              ))}
                             </div>
                           </div>
-                          <div
-                            className="mx-[18px] bg-[#0B0D0F] flex items-center justify-center text-white py-3 rounded-[10px] h-10 mb-3 cursor-pointer"
-                            onClick={() => setIsBetterCardSheetOpen(true)}
-                          >더 나은 혜택 카드 보기</div>
-                          {benefit.spots.map((spot, i) => (
-                            <div
-                              key={spot.name+i}
-                              className="flex items-center mx-[18px] rounded-[13px] bg-[#F8F8F8] border border-[#F4F4F4] px-2 py-3.5 mb-[7px] last:mb-[30px] cursor-pointer"
-                              onClick={() => {
-                                setSelectedKeywordBenefit(benefit)
-                                setSelectedBenefitSpot(spot)
-                              }}
-                            >
-                              <img src={spot.image} width="34" height="34" alt="" />
-                              <div className="flex-1 ml-[11px]">
-                                <div className="font-semibold text-[13px]">{spot.name}</div>
-                                <div className="font-medium text-[13px] text-[#6D727A]">{spot.benefit}</div>
+                        ) : (
+                          <div className="absolute top-0 bg-white w-full overflow-x-hidden overflow-y-scroll">
+                            <div className="px-[18px] flex items-center justify-between mb-4">
+                              <img
+                                src={arrowLeftIcon}
+                                width="24"
+                                height="24"
+                                alt="뒤로가기"
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  setSelectedKeywordBenefit(null)
+                                  setSelectedBenefitSpot(null)
+                                  snapTo(2)
+                                }}
+                              />
+                              <div className="flex items-center space-x-[7px]">
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={directionsIcon} width="20" height="20" alt="" />
+                                </div>
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={callIcon} width="20" height="20" alt="" />
+                                </div>
+                                <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                                  <img src={bookmarkIcon} width="20" height="20" alt="" />
+                                </div>
                               </div>
-                              <div className="bg-white border border-[#EBEBEB] rounded-full px-2 py-1 font-medium text-[13px] text-[#5A5B64]">{spot.distance}</div>
                             </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+
+                            <div className="px-[18px] leading-none mb-4">
+                              <div className="text-xl font-semibold mb-1">{selectedBenefitSpot.name}</div>
+                              <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
+                                <div>{selectedKeywordBenefit.category}</div>
+                                <img src={grayDotIcon} width="3" height="3" alt="" />
+                                <div>{selectedBenefitSpot.distance}</div>
+                              </div>
+                              <div className="text-sm text-[#6D727A] mb-px">서울 광진구 아차산로 30길 26</div>
+                              <div className="flex items-center space-x-1.5 text-sm font-medium">
+                                <div>영업중</div>
+                                <img src={grayDotIcon} width="3" height="3" alt="" />
+                                <div className="text-[#6D727A]">00:00 - 24:00</div>
+                              </div>
+                            </div>
+
+                            <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                              {spotCards.map((card) => (
+                                <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                                  <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
+                                  <div className="ml-3.5 font-medium">
+                                    <div className="text-xs text-[#B2B2B2]">{card.company}</div>
+                                    <div className="text-[13px] text-[#6D727A]">{card.name}</div>
+                                    <div className="text-[15px] font-semibold">{card.benefit}</div>
+                                  </div>
+                                  <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
+                                </div>
+                              ))}
+                            </div>
+
+                            <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                              {photos.map((photo, i) => (
+                                <img key={photo+i} src={photo} width="149" height="100" alt="" />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
                 )}
               </>
             )}
@@ -712,7 +860,7 @@ export default function Home() {
         </Sheet>
       )}
 
-      {selectedKeywordBenefit && (
+      {/* {selectedKeywordBenefit && (
         <Sheet
           isOpen={!!selectedKeywordBenefit}
           onClose={() => setSelectedKeywordBenefit(null)}
@@ -865,7 +1013,7 @@ export default function Home() {
             setSelectedBenefitSpot(null)
           }} />
         </Sheet>
-      )}
+      )} */}
 
       {isBetterCardSheetOpen && (
         <Sheet
