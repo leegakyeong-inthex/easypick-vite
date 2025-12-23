@@ -12,6 +12,7 @@ import cafeIcon from '@/assets/images/icons/cafe.png';
 import beautyIcon from '@/assets/images/icons/beauty.png';
 import sportIcon from '@/assets/images/icons/sport.png';
 import movieIcon from '@/assets/images/icons/movie.png';
+import restaurantIcon from '@/assets/images/icons/restaurant.png';
 import notificationsIcon from '@/assets/images/icons/notifications.png';
 import arrowLeftIcon from '@/assets/images/icons/arrow-left.png';
 import tuneIcon from '@/assets/images/icons/tune.png';
@@ -55,7 +56,7 @@ const places = [
   },
   {
     name: "레스토랑",
-    iconUrl: movieIcon,
+    iconUrl: restaurantIcon,
   },
 ]
 
@@ -732,7 +733,7 @@ export default function Home() {
               <div>
                 <div className="px-5 font-semibold text-lg leading-[25px] mb-8">로그인하고 내 소비패턴에 맞는<br />카드 혜택과 이벤트를 확인해보세요.</div>
                 <div className="px-[18px]">
-                  <Button>로그인하고 확인하기</Button>
+                  <Button className="leading-[19px]">로그인하고 확인하기</Button>
                 </div>
               </div>
             </Sheet.Content>
