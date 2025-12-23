@@ -190,7 +190,7 @@ interface SheetRef {
 }
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [isLoggedIn, _] = useState<boolean>(false)
   const [selectedBenefit, setselectedBenefit] = useState<string>('place')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoginSheetOpen, setIsLoginSheetOpen] = useState<boolean>(false)

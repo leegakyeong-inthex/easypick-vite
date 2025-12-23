@@ -22,7 +22,7 @@ export default function SignIn() {
   const [findPasswordStep, setFindPasswordStep] = useState(1)
   const [passwordPhoneNumber, setPasswordPhoneNumber] = useState("")
   const [passwordVerificationCode, setPasswordVerificationCode] = useState("")
-  const [passwordTimer, setPasswordTimer] = useState(0)
+  const [_, setPasswordTimer] = useState(0)
 
   const handleFindIdClick = () => {
     setIsFindIdSheetOpen(true)
