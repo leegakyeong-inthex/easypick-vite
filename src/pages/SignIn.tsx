@@ -40,36 +40,6 @@ export default function SignIn() {
     setPasswordTimer(0)
   }
 
-  const handleSendVerification = () => {
-    if (phoneNumber.trim()) {
-      setFindIdStep(2)
-    }
-  }
-
-  const handleVerificationSubmit = () => {
-    if (verificationCode.trim()) {
-      setFoundEmail("E**********25")
-      setFindIdStep(3)
-    }
-  }
-
-  const handleConfirm = () => {
-    setFindIdStep(4)
-  }
-
-  const handleSendPasswordVerification = () => {
-    if (passwordPhoneNumber.trim()) {
-      setFindPasswordStep(2)
-      setPasswordTimer(300) // 5분 타이머
-    }
-  }
-
-  const handlePasswordVerificationSubmit = () => {
-    if (passwordVerificationCode.trim()) {
-      setFindPasswordStep(3)
-    }
-  }
-
   const handleCloseFindId = () => {
     setIsFindIdSheetOpen(false)
   }

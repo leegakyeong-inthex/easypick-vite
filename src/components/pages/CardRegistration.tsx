@@ -235,34 +235,59 @@ const initialCards = [
   },
 ]
 
-export default function CardRegistration({ setIsVisible }) {
-  const [cards, setCards] = useState(initialCards)
-  const [selectedCard, setSelectedCard] = useState('KB 국민카드')
-  const [isOpen, setIsOpen] = useState(false)
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false)
-  const [currentRegistrationCard, setCurrentRegistrationCard] = useState(null)
-  const [company, setCompany] = useState('')
-  const [cardName, setCardName] = useState('')
-  const [isInputsComplete, setIsInputsComplete] = useState(false)
+interface CardRegistrationProps {
+  setIsVisible: (isVisible: boolean) => void
+}
 
-  const handleCompanyChange = (e) => {
+interface Card {
+  image: string
+  name: string
+  selected: boolean
+}
+
+interface CardCompany {
+  company: string
+  cards: Card[]
+}
+
+interface SelectedCard {
+  name: string
+  company: string
+}
+
+interface CurrentRegistrationCard {
+  company: string
+  index: number
+}
+
+export default function CardRegistration({ setIsVisible }: CardRegistrationProps) {
+  const [cards, setCards] = useState<CardCompany[]>(initialCards)
+  const [selectedCard, setSelectedCard] = useState<string>('KB 국민카드')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(false)
+  const [currentRegistrationCard, setCurrentRegistrationCard] = useState<CurrentRegistrationCard | null>(null)
+  const [company, setCompany] = useState<string>('')
+  const [cardName, setCardName] = useState<string>('')
+  const [isInputsComplete, setIsInputsComplete] = useState<boolean>(false)
+
+  const handleCompanyChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value
     setCompany(value)
     setIsInputsComplete(value.trim() !== '' && cardName.trim() !== '')
   }
 
-  const handleCardNameChange = (e) => {
+  const handleCardNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value
     setCardName(value)
     setIsInputsComplete(company.trim() !== '' && value.trim() !== '')
   }
 
-  const handleCardClick = (companyName, cardIndex) => {
+  const handleCardClick = (companyName: string, cardIndex: number): void => {
     setCurrentRegistrationCard({ company: companyName, index: cardIndex })
     setIsRegistrationOpen(true)
   }
 
-  const handleRegistrationComplete = () => {
+  const handleRegistrationComplete = (): void => {
     if (currentRegistrationCard) {
       setCards((prevCards) =>
         prevCards.map((company) =>
@@ -281,8 +306,8 @@ export default function CardRegistration({ setIsVisible }) {
     }
   }
 
-  const getSelectedCards = () => {
-    const selected = []
+  const getSelectedCards = (): SelectedCard[] => {
+    const selected: SelectedCard[] = []
     cards.forEach((company) => {
       company.cards.forEach((card) => {
         if (card.selected) {
@@ -293,7 +318,7 @@ export default function CardRegistration({ setIsVisible }) {
     return selected
   }
 
-  const handleRemoveCard = (cardName, companyName) => {
+  const handleRemoveCard = (cardName: string, companyName: string): void => {
     setCards((prevCards) =>
       prevCards.map((company) =>
         company.company === companyName
@@ -338,7 +363,7 @@ export default function CardRegistration({ setIsVisible }) {
               ))}
             </div>
             <div className="flex flex-col py-1.5 px-2.5 space-y-1.5 flex-1 overflow-y-scroll">
-              {cards.find((card) => card.company === selectedCard).cards.map((card,i) => (
+              {cards.find((card) => card.company === selectedCard)?.cards.map((card,i) => (
                 <div
                   key={card.name+i}
                   className={`flex items-center w-full min-h-[60px] font-medium text-sm rounded-[10px] px-[13px] cursor-pointer ${card.selected ? 'bg-[#0B0D0F] text-white' : ''}`}

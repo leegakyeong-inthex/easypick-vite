@@ -23,7 +23,11 @@ const notifications = [
   },
 ]
 
-export default function Notifications({ setIsVisible }) {
+interface NotificationsProps {
+  setIsVisible: (visible: boolean) => void
+}
+
+export default function Notifications({ setIsVisible }: NotificationsProps) {
   return(
     <div style={{ zIndex: 2 }} className="bg-white absolute w-full h-full">
       <div className="flex items-center pt-3.5 pb-2.5 px-[17px]">

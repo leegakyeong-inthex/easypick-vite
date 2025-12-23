@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "react-modal-sheet";
 import NavigationBar from "@/components/NavigationBar";
@@ -172,24 +171,42 @@ const cardBenefits = [
   }
 ]
 
+interface CardBenefitSpot {
+  image: string
+  name: string
+  benefit: string
+  distance: string
+}
+
+interface CardBenefit {
+  category: string
+  condition: string
+  benefit: string
+  spots: CardBenefitSpot[]
+}
+
+interface SheetRef {
+  snapTo: (index: number) => void
+}
+
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [selectedBenefit, setselectedBenefit] = useState('place') // place or card
-  const [isOpen, setIsOpen] = useState(false)
-  const [isLoginSheetOpen, setIsLoginSheetOpen] = useState(false)
-  const [selectedPlace, setSelectedPlace] = useState('')
-  const [selectedSpot, setSelectedSpot] = useState('')
-  const [selectedCard, setSelectedCard] = useState('')
-  const [isCardRegistrationVisible, setIsCardRegistrationVisible] = useState(false)
-  const [isNotificationsVisible, setIsNotificationsVisible] = useState(false)
-  const [selectedKeyword, setSelectedKeyword] = useState('')
-  const [isKeywordSheetOpen, setIsKeywordSheetOpen] = useState(false)
-  const [selectedKeywordSpot, setSelectedKeywordSpot] = useState('')
-  const [selectedBenefitSpot, setSelectedBenefitSpot] = useState(null)
-  const [selectedKeywordBenefit, setSelectedKeywordBenefit] = useState(null)
-  const [isBetterCardSheetOpen, setIsBetterCardSheetOpen] = useState(false)
-  const ref = useRef(null);
-  const snapTo = (i) => ref.current.snapTo(i);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [selectedBenefit, setselectedBenefit] = useState<string>('place')
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isLoginSheetOpen, setIsLoginSheetOpen] = useState<boolean>(false)
+  const [selectedPlace, setSelectedPlace] = useState<string>('')
+  const [selectedSpot, setSelectedSpot] = useState<string>('')
+  const [selectedCard, setSelectedCard] = useState<string>('')
+  const [isCardRegistrationVisible, setIsCardRegistrationVisible] = useState<boolean>(false)
+  const [isNotificationsVisible, setIsNotificationsVisible] = useState<boolean>(false)
+  const [selectedKeyword, setSelectedKeyword] = useState<string>('')
+  const [isKeywordSheetOpen, setIsKeywordSheetOpen] = useState<boolean>(false)
+  const [selectedKeywordSpot, setSelectedKeywordSpot] = useState<string>('')
+  const [selectedBenefitSpot, setSelectedBenefitSpot] = useState<CardBenefitSpot | null>(null)
+  const [selectedKeywordBenefit, setSelectedKeywordBenefit] = useState<CardBenefit | null>(null)
+  const [isBetterCardSheetOpen, setIsBetterCardSheetOpen] = useState<boolean>(false)
+  const ref = useRef<SheetRef>(null);
+  const snapTo = (i: number): void => ref.current?.snapTo(i);
 
   useEffect(() => {
     setIsOpen(true)
