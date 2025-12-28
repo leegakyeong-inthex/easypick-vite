@@ -134,7 +134,7 @@ export default function MyCards() {
           <>
             <div className="divide-y divide-solid divide-[#F4F4F4]">
               {ownedCards.map((card, i) => (
-                <div>
+                <div key={card.name+i}>
                   <div key={card.name+i} className="flex items-center py-[8.5px] px-[10.5px]">
                     <img src={card.image} width="54" height="86" alt={card.name} className="mr-[12.5px]" />
                     <div className="flex-1">

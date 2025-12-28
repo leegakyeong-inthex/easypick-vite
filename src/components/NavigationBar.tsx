@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import pageview from '@/assets/images/icons/pageview.png'
 import addCard from '@/assets/images/icons/add_card.png'
@@ -38,6 +38,15 @@ const tabs = [
 
 export default function NavigationBar() {
   const [selectedTab, setSelectedTab] = useState('혜택 지도')
+
+  useEffect(() => {
+    // Set default selected tab based on current URL path
+    const currentPath = window.location.pathname;
+    const currentTab = tabs.find(tab => tab.href === currentPath);
+    if (currentTab) {
+      setSelectedTab(currentTab.title);
+    }
+  }, []);
 
   return (
     <div className="fixed z-2 bottom-0 w-full h-20 pt-2.5 px-[25px] bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
