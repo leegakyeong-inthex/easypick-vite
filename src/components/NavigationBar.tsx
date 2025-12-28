@@ -12,7 +12,7 @@ const tabs = [
   {
     title: "검색",
     iconUrl: pageview,
-    href: "/",
+    href: "/search",
   },
   {
     title: "내 카드",

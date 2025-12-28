@@ -3,7 +3,7 @@ import NavigationBar from "@/components/NavigationBar";
 
 export default function Layout() {
   const location = useLocation();
-  const hideNav = location.pathname === "/sign-in" || location.pathname === "/sign-up";
+  const hideNav = location.pathname === "/sign-in" || location.pathname === "/sign-up" || location.pathname === "/search";
 
   return (
     <>
