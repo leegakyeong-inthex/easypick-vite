@@ -17,7 +17,7 @@ const tabs = [
   {
     title: "내 카드",
     iconUrl: addCard,
-    href: "/",
+    href: "/my-cards",
   },
   {
     title: "혜택 지도",
