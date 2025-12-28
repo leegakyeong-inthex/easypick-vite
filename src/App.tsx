@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "react-modal-sheet";
-import NavigationBar from "@/components/NavigationBar";
 import CardRegistration from "@/components/pages/CardRegistration";
 import Notifications from "@/components/pages/Notifications";
 import './App.css'
@@ -741,8 +740,6 @@ export default function Home() {
           <Sheet.Backdrop onClick={() => setIsLoginSheetOpen(false)} />
         </Sheet>
       )}
-
-      <NavigationBar />
 
       {isCardRegistrationVisible && <CardRegistration setIsVisible={setIsCardRegistrationVisible} />}
 

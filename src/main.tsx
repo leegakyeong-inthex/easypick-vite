@@ -6,15 +6,18 @@ import SignUp from '@/pages/SignUp.tsx'
 import MyCards from '@/pages/MyCards.tsx'
 import './index.css'
 import App from './App.tsx'
+import Layout from './layout.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/my-cards" element={<MyCards />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<App />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/my-cards" element={<MyCards />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

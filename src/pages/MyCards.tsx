@@ -10,7 +10,6 @@ import card2 from '@/assets/images/card-2.png';
 import card3 from '@/assets/images/card-3.png';
 import card4 from '@/assets/images/card-4.png';
 import card5 from '@/assets/images/card-5.png';
-import NavigationBar from '@/components/NavigationBar';
 
 const places = [
   {
@@ -120,8 +119,6 @@ export default function MyCards() {
           ))}
         </div>
       </div>
-
-      <NavigationBar />
     </>
   )
 }
