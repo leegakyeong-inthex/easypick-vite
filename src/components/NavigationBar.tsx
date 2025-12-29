@@ -27,7 +27,7 @@ const tabs = [
   {
     title: "카드 추천",
     iconUrl: creditCard,
-    href: "/",
+    href: "/recommendation",
   },
   {
     title: "더보기",

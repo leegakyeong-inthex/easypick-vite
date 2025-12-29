@@ -10,6 +10,7 @@ import grayDotIcon from '@/assets/images/icons/gray-dot.png';
 import photo1 from '@/assets/images/photo-1.png';
 import photo2 from '@/assets/images/photo-2.png';
 import { Input } from "@/components/ui/input";
+import { useNavigate } from "react-router";
 
 const spotCards = [
   {
@@ -34,14 +35,8 @@ const photos = [
 
 export default function Search() {
   const [isOpen, setIsOpen] = useState(true);
-  const [selectedSpot, setSelectedSpot] = useState('');
   const ref = useRef<Sheet>(null);
-
-  const snapTo = (index: number) => {
-    if (ref.current) {
-      ref.current.snapTo(index);
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-full">
@@ -53,8 +48,7 @@ export default function Search() {
             height="24"
             alt="뒤로가기"
             onClick={() => {
-              setSelectedSpot('')
-              snapTo(3)
+              navigate(-1);
             }}
           />
         </div>
@@ -87,21 +81,13 @@ export default function Search() {
           <Sheet.Header />
           <Sheet.Content>
             <div className="absolute top-0 bg-white w-full">
-              <div className="px-[18px] flex items-center justify-between mb-4">
-                <img
-                  src={arrowLeftIcon}
-                  width="24"
-                  height="24"
-                  alt="뒤로가기"
-                  onClick={() => {
-                    setSelectedSpot('')
-                    snapTo(3)
-                  }}
-                />
-              </div>
-
               <div className="px-[18px] leading-none mb-4">
-                <div className="text-xl font-semibold mb-1">이마트 왕십리점</div>
+                <div className="flex items-center justify-between mb-1">
+                  <div className="text-xl font-semibold">이마트 왕십리점</div>
+                  <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                    <img src={bookmarkIcon} width="20" height="20" alt="" />
+                  </div>
+                </div>
                 <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
                   <div>마트</div>
                   <img src={grayDotIcon} width="3" height="3" alt="" />
