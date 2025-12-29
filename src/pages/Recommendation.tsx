@@ -19,6 +19,7 @@ import card2 from '@/assets/images/card-2.png';
 import card3 from '@/assets/images/card-3.png';
 import card4 from '@/assets/images/card-4.png';
 import card5 from '@/assets/images/card-5.png';
+import card6 from '@/assets/images/card-6.png';
 import arrowLeftIcon from '@/assets/images/icons/arrow-left.png';
 import eventBanner2 from '@/assets/images/event-banner_2.png';
 import marketIcon from '@/assets/images/icons/market.png';
@@ -30,6 +31,8 @@ import petSuppliesIcon from '@/assets/images/icons/pet_supplies.png';
 import poolIcon from '@/assets/images/icons/pool.png';
 import slateIcon from '@/assets/images/icons/slate.png';
 import theaterComedyIcon from '@/assets/images/icons/theater_comedy.png';
+import deleteIcon from '@/assets/images/icons/delete.png';
+import chevronRightIcon from '@/assets/images/icons/chevron_right.png';
 
 const places = [
   {
@@ -110,10 +113,39 @@ const spendingCategories = [
   {name: '반려동물', icon: petSuppliesIcon},
 ]
 
+const recommendedCards = [
+  {
+    name: "디지로카 Las Vegas",
+    benefit: "국내외 가맹점 최대 2% 할인!\n가맹점 2~3개얼 무이자 할부",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card6,
+  },
+  {
+    name: "디지로카 Las Vegas",
+    benefit: "국내외 가맹점 최대 2% 할인!\n가맹점 2~3개얼 무이자 할부",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card6,
+  },
+  {
+    name: "디지로카 Las Vegas",
+    benefit: "국내외 가맹점 최대 2% 할인!\n가맹점 2~3개얼 무이자 할부",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card6,
+  },
+  {
+    name: "디지로카 Las Vegas",
+    benefit: "국내외 가맹점 최대 2% 할인!\n가맹점 2~3개얼 무이자 할부",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card6,
+  },
+]
+
 export default function Recommendation() {
   const [selectedPlace, setSelectedPlace] = useState<string>('전체');
   const [step, setStep] = useState<number>(1);
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
+  const [spendingAmounts, setSpendingAmounts] = useState<Record<string, string>>({});
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const toggleCategory = (categoryName: string) => {
     const newSelected = new Set(selectedCategories);
@@ -124,6 +156,47 @@ export default function Recommendation() {
     }
     setSelectedCategories(newSelected);
   };
+
+  const handleAmountChange = (category: string, value: string) => {
+    setSpendingAmounts(prev => ({
+      ...prev,
+      [category]: value
+    }));
+  };
+
+  const handleKeypadInput = (value: string) => {
+    if (!activeCategory) return;
+
+    if (value === '00') {
+      setSpendingAmounts(prev => ({
+        ...prev,
+        [activeCategory]: (prev[activeCategory] || '') + '00'
+      }));
+    } else if (value === '삭제') {
+      setSpendingAmounts(prev => ({
+        ...prev,
+        [activeCategory]: (prev[activeCategory] || '').slice(0, -1)
+      }));
+    } else {
+      setSpendingAmounts(prev => ({
+        ...prev,
+        [activeCategory]: (prev[activeCategory] || '') + value
+      }));
+    }
+  };
+
+  const handleQuickAdd = (amount: number) => {
+    if (!activeCategory) return;
+    const currentAmount = parseInt(spendingAmounts[activeCategory] || '0') || 0;
+    setSpendingAmounts(prev => ({
+      ...prev,
+      [activeCategory]: String(currentAmount + amount)
+    }));
+  };
+
+  const areAllAmountsFilled = Array.from(selectedCategories).every(
+    category => spendingAmounts[category] && parseInt(spendingAmounts[category]) > 0
+  );
 
   return (
     <>
@@ -171,7 +244,7 @@ export default function Recommendation() {
         </div>
       </div>
 
-      {step == 2 && (
+      {step === 2 && (
         <div className="absolute z-10 top-0 left-0 w-full h-full bg-white flex flex-col">
           <div className="flex px-[18px] mt-4 mb-[29px]">
             <img
@@ -203,6 +276,150 @@ export default function Recommendation() {
             >
               다음
             </Button>
+          </div>
+        </div>
+      )}
+
+      {step === 3 && (
+        <div className="absolute z-10 top-0 left-0 w-full h-full bg-white flex flex-col">
+          <div className="flex px-[18px] mt-4 mb-[29px]">
+            <img
+                src={arrowLeftIcon}
+                width="24"
+                height="24"
+                alt="뒤로가기"
+                onClick={() => {
+                  setStep(2);
+                  setActiveCategory(null);
+                }}
+              />
+          </div>
+          <div className="font-bold text-[26px] leading-9 ml-[18px] mb-[19px]">월 예상 사용금액을<br />알려주세요.</div>
+
+          <div className="px-[18px] flex-1 overflow-y-auto flex flex-col space-y-[17px]">
+            {Array.from(selectedCategories).map((category) => (
+              <div
+                key={category}
+                className="cursor-pointer"
+                onClick={() => setActiveCategory(category)}
+              >
+                <div className="font-medium text-sm text-[#6D727A] mb-2">{category}</div>
+                <div className="flex items-center bg-[#F3F3F3] rounded-[10px] p-5">
+                  <div className="flex-1">
+                    <span className={`font-medium text-lg ${spendingAmounts[category] ? 'text-[#000000]' : 'text-[#B4B4B4]'}`}>{spendingAmounts[category] || '월 예상 사용금액'}</span>
+                  </div>
+                  <span className="ml-2 font-medium text-lg text-[#686B70]">원</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="px-[18px] pb-[30px] pt-[22px]">
+            <div className="flex gap-2 mb-6">
+              <button
+                onClick={() => handleQuickAdd(10000)}
+                className="flex-1 border border-[#EBEBEB] py-[11px] w-[39px] rounded-[9px] text-[#5A5B64] font-semibold text-sm"
+              >
+                +1만원
+              </button>
+              <button
+                onClick={() => handleQuickAdd(50000)}
+                className="flex-1 border border-[#EBEBEB] py-[11px] w-[39px] rounded-[9px] text-[#5A5B64] font-semibold text-sm"
+              >
+                +5만원
+              </button>
+              <button
+                onClick={() => handleQuickAdd(100000)}
+                className="flex-1 border border-[#EBEBEB] py-[11px] w-[39px] rounded-[9px] text-[#5A5B64] font-semibold text-sm"
+              >
+                +10만원
+              </button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mb-3">
+              {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
+                <button
+                  key={num}
+                  onClick={() => handleKeypadInput(num)}
+                  className="py-4 bg-white rounded-lg text-[23px] text-[#686B70]"
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                onClick={() => handleKeypadInput('00')}
+                className="py-4 bg-white rounded-lg text-[23px] text-[#686B70]"
+              >
+                00
+              </button>
+              <button
+                onClick={() => handleKeypadInput('0')}
+                className="py-4 bg-white rounded-lg text-[23px] text-[#686B70]"
+              >
+                0
+              </button>
+              <button
+                onClick={() => handleKeypadInput('삭제')}
+                className="py-4 bg-white rounded-lg text-[23px] text-[#686B70]"
+              >
+                <img src={deleteIcon} width="23" height="17" alt="삭제" className="mx-auto" />
+              </button>
+            </div>
+          </div>
+
+          <div className="px-[18px] pb-[30px]">
+            <Button
+              className={`w-full font-medium text-base ${areAllAmountsFilled ? 'bg-[#0068FF]' : 'bg-[#C3C3C3]'}`}
+              disabled={!areAllAmountsFilled}
+              onClick={() => {
+                setStep(4);
+                setActiveCategory(null);
+              }}
+            >
+              확인
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {step === 4 && (
+        <div className="absolute z-10 top-0 left-0 w-full h-full bg-white flex flex-col">
+          <div className="flex px-[18px] mt-4 mb-[29px]">
+            <img
+                src={arrowLeftIcon}
+                width="24"
+                height="24"
+                alt="뒤로가기"
+                onClick={() => {
+                  setStep(3);
+                }}
+              />
+          </div>
+          <div className="font-bold text-xl mb-[30px] ml-[18px]">내 소비성향 맞춤 카드</div>
+          <div className="mx-[18px] mb-3.5 flex items-center justify-between">
+            <div className="font-semibold text-[15px] text-[#6D727A]">총 {recommendedCards.length}개</div>
+            <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
+          </div>
+          <div className="px-[18px] flex flex-col space-y-3">
+            {recommendedCards.map((card, i) => (
+              <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px] pl-[12px]">
+                <div className="flex">
+                  <img src={card.image} width="67" height="102" alt={card.name} className="mr-4 object-contain" />
+                  <div className="flex-1">
+                    <div className="font-medium text-[#6D727A] text-xs mb-1.5">{card.name}</div>
+                    <div className="font-semibold text-sm whitespace-pre-line mb-[11px]">{card.benefit}</div>
+                    <div className="w-fit px-[9px] font-medium text-xs bg-[#D6E7FF] text-[#0068FF] rounded-full h-6 flex items-center justify-center">{card.estimatedBenefit}</div>
+                  </div>
+                </div>
+                <div className="rounded-b-[10px] bg-[#F1F1F1] h-[42px] flex items-center justify-center font-semibold text-sm text-[#323232] mt-[15px]">
+                  <div>카드 신청</div>
+                  <img src={chevronRightIcon} width="20" height="20" alt="더보기" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}
