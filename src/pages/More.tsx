@@ -1,3 +1,9 @@
+import Bookmarks from "@/components/pages/Bookmarks"
+
 export default function More() {
-  return <div>More Page</div>
+  return (
+    <div>
+      <Bookmarks />
+    </div>
+  )
 }

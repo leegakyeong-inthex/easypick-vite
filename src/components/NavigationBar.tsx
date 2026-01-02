@@ -32,7 +32,7 @@ const tabs = [
   {
     title: "더보기",
     iconUrl: menu,
-    href: "/",
+    href: "/more",
   },
 ]
 
