@@ -7,6 +7,7 @@ import MyCards from '@/pages/MyCards.tsx'
 import Search from '@/pages/Search.tsx'
 import Recommendation from '@/pages/Recommendation.tsx'
 import CardDetail from '@/components/pages/CardDetail.tsx'
+import More from '@/pages/More.tsx'
 import './index.css'
 import App from './App.tsx'
 import Layout from './layout.tsx'
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/search" element={<Search />} />
           <Route path="/recommendation" element={<Recommendation />} />
           <Route path="/card-detail" element={<CardDetail />} />
+          <Route path="/more" element={<More />} />
         </Route>
       </Routes>
     </BrowserRouter>
