@@ -10,7 +10,9 @@ import washerIcon from '@/assets/images/icons/washer.png';
 import shoppingIcon from '@/assets/images/icons/shopping.png';
 import checkoutIcon from '@/assets/images/icons/checkout.png';
 import chevronRightBlackIcon from '@/assets/images/icons/chevron_right_black.png';
+import closeRoundIcon from '@/assets/images/icons/close_round.png';
 import { Button } from "../ui/button";
+import { Sheet } from "react-modal-sheet";
 
 const benefits = [
   {
@@ -48,6 +50,8 @@ const benefits = [
 export default function CardDetail() {
   const navigate = useNavigate();
   const [isLateInterestExpanded, setIsLateInterestExpanded] = useState(false);
+  const [isAnnualFeeOpen, setIsAnnualFeeOpen] = useState(false);
+  const [isAnnualFeeDetailOpen, setIsAnnualFeeDetailOpen] = useState(false);
 
   return (
     <div className="flex flex-col min-h-full bg-white">
@@ -78,10 +82,10 @@ export default function CardDetail() {
           </div>
         </div>
         <div className="px-[18px] py-5 flex flex-col space-y-3 border-b border-[#F4F4F4]">
-          <div className="flex">
+          <div className="flex cursor-pointer" onClick={() => setIsAnnualFeeOpen(true)}>
             <div className="w-[83px] text-base font-semibold">연회비</div>
-            <div className="text-base font-medium text-[#6D727A] leading-[26px]">
-              <div className="flex">
+            <div className="text-base font-medium text-[#6D727A] leading-[26px] flex-grow">
+              <div className="flex items-center">
                 <span>국내 1만 5천원, 해외 1만 8천원</span>
                 <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
               </div>
@@ -91,7 +95,7 @@ export default function CardDetail() {
           <div className="flex">
             <div className="w-[83px] text-base font-semibold">기준 실적</div>
             <div className="text-base font-medium text-[#6D727A] leading-[26px]">
-              <div className="flex">
+              <div className="flex items-center">
                 <span>직전 1개월 합계 30만원 이상</span>
                 <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
               </div>
@@ -102,7 +106,7 @@ export default function CardDetail() {
           <div className="mb-5 font-semibold text-lg">혜택 요약</div>
           <div className="flex flex-col space-y-2">
             {benefits.map((benefit, index) => (
-              <div key={index} className="p-[18px] flex items-center bg-[#F8F8F8] border border-[#F4F4F4] rounded-[13px]">
+              <div key={index} className="p-[18px] flex items-center bg-[#F8F8F8] border border-[#F4F4F4] rounded-[13px]" onClick={() => setIsAnnualFeeDetailOpen(true)}>
                   <div className="w-11 h-11 bg-white border border-[#EFEFEF] rounded-[7px] flex items-center justify-center mr-4">
                     <img src={benefit.icon} width="26" height="26" alt={benefit.title} />
                   </div>
@@ -143,6 +147,64 @@ export default function CardDetail() {
       <div className="fixed bottom-0 w-full bg-white pt-2 pb-8 px-[18px]" style={{ boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.04)' }}>
         <Button>카드 신청하기</Button>
       </div>
+      <Sheet isOpen={isAnnualFeeOpen} onClose={() => setIsAnnualFeeOpen(false)}>
+        <Sheet.Container className="max-h-[191px]">
+          <Sheet.Header>
+            <div className="flex justify-between items-center pl-[25px] pr-[18px] pt-[23px] pb-[19px]">
+              <h2 className="text-lg font-semibold">연회비</h2>
+              <button onClick={() => setIsAnnualFeeOpen(false)} className="text-[#999] text-2xl font-light">
+                <img src={closeRoundIcon} width="24" height="24" alt="닫기" />
+              </button>
+            </div>
+          </Sheet.Header>
+          <Sheet.Content>
+            <div className="px-[25px]">
+              <div>
+                <div className="flex items-center space-x-2.5 mb-2.5">
+                  <div className="text-base font-medium text-[#6D727A]">국내외겸용</div>
+                  <div className="text-[13px] text-[#DEDEDE]">|</div>
+                  <div className="text-base font-medium">12,000원 (Master)</div>
+                </div>
+                <div className="flex items-center space-x-2.5 mb-[13px]">
+                  <div className="text-base font-medium text-[#6D727A]">국내전용</div>
+                  <div className="text-[13px] text-[#DEDEDE]">|</div>
+                  <div className="text-base font-medium">10,000원 (K-WORLD(JCB))</div>
+                </div>
+                <div className="bg-[#D6E7FF] rounded-full px-[9px] py-[5px] h-6 w-fit">
+                  <div className="text-xs font-medium text-[#0068FF] leading-3.5">신규 회원 최대 100% 지급</div>
+                </div>
+              </div>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop onClick={() => setIsAnnualFeeOpen(false)} />
+      </Sheet>
+      <Sheet isOpen={isAnnualFeeDetailOpen} onClose={() => setIsAnnualFeeDetailOpen(false)}>
+        <Sheet.Container className="max-h-[294px]">
+          <Sheet.Header>
+            <div className="flex justify-between items-center pl-[25px] pr-[18px] pt-[23px] pb-[22px]">
+              <h2 className="text-lg font-semibold">연회비</h2>
+              <button onClick={() => setIsAnnualFeeDetailOpen(false)} className="text-[#999] text-2xl font-light">
+                <img src={closeRoundIcon} width="24" height="24" alt="닫기" />
+              </button>
+            </div>
+          </Sheet.Header>
+          <Sheet.Content>
+            <div className="pl-[19px] pr-[22px] mb-[25px]">
+              <div className="font-medium mb-2.5">공과금</div>
+              <ul className="list-disc font-medium text-[#6D727A] text-sm leading-[22px] pl-[18px]">
+                <li>전기요금 / 도시가스 요금 / SKT, LG U+, KT 통신요금 할인 인터넷 / 집전화/이동통신/결합상품 포함</li>
+                <li>일 1회 할인 적용</li>
+                <li>1회 이용 금액 5만원까지 할인 적용 (1회 최대 5천원 할인)</li>
+              </ul>
+            </div>
+            <div className="px-[18px]">
+              <Button>카드 신청하기</Button>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop onClick={() => setIsAnnualFeeDetailOpen(false)} />
+      </Sheet>
     </div>
   )
 }
