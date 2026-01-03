@@ -3,6 +3,9 @@ import chevronRightIcon from '@/assets/images/icons/chevron_right.png'
 import movieThumbnail from '@/assets/images/movie_thumbnail.png'
 import cafeThumbnail from '@/assets/images/cafe_thumbnail.png'
 import martThumbnail from '@/assets/images/mart_thumbnail.png'
+import { Sheet } from 'react-modal-sheet'
+import { useState } from 'react'
+import checkBlueIcon from '@/assets/images/icons/check_blue.png'
 
 const bookmarks = [
   {
@@ -33,6 +36,8 @@ const bookmarks = [
 ]
 
 export default function Bookmarks() {
+  const [isSortSheetOpen, setIsSortSheetOpen] = useState(false);
+
   return (
     <div className="flex flex-col min-h-full bg-white">
       <div className="w-full h-[60px] flex items-center px-[18px] z-50e">
@@ -52,7 +57,7 @@ export default function Bookmarks() {
       </div>
       <div className="flex items-center justify-between px-[18px] mt-3.5 mb-4">
         <div className="text-[#6D727A] text-[15px] font-medium">총 {bookmarks.length}개</div>
-        <div className="flex items-center">
+        <div className="flex items-center" onClick={() => setIsSortSheetOpen(true)}>
           <div className="text-[#858A94] text-sm">등록순</div>
           <img src={chevronRightIcon} width="18" height="18" alt="정렬 아이콘" className="rotate-90" />
         </div>
@@ -64,6 +69,23 @@ export default function Bookmarks() {
           <div className="text-[#B4B4B4] text-lg font-semibold">{bookmark.count}</div>
         </div>
       ))}
+      <Sheet isOpen={isSortSheetOpen} onClose={() => setIsSortSheetOpen(false)}>
+        <Sheet.Container className="max-h-[135px]">
+          <Sheet.Header />
+          <Sheet.Content>
+            <div className="px-[25px] pb-[13px]">
+              <div className="text-base font-medium py-3.5 flex items-center justify-between">
+                <div>등록순</div>
+                <img src={checkBlueIcon} width="20" height="20" alt="선택 아이콘" />
+              </div>
+              <div className="text-base font-medium py-3.5 flex items-center justify-between">
+                <div>이름순</div>
+              </div>
+            </div>
+          </Sheet.Content>
+        </Sheet.Container>
+        <Sheet.Backdrop onClick={() => setIsSortSheetOpen(false)} />
+      </Sheet>
     </div>
   )
 }
