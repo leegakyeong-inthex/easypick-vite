@@ -193,7 +193,7 @@ export default function Recommendation() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [spendingAmounts, setSpendingAmounts] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [doesSpendingExist, setDoesSpendingExist] = useState<boolean>(true);
+  const [doesSpendingExist, _] = useState<boolean>(true);
 
   const toggleCategory = (categoryName: string) => {
     const newSelected = new Set(selectedCategories);
@@ -533,7 +533,7 @@ export default function Recommendation() {
                     </Link>
                   </div>
                   <div className="flex flex-col space-y-3">
-                    {cards.map((card, j) => (
+                    {cards.map((card: { name: string; benefit: string; estimatedBenefit: string; image: string; }) => (
                       <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px] pl-[12px]">
                         <div className="flex">
                           <img src={card.image} width="55" height="84" alt={card.name} className="mr-4 object-contain" />

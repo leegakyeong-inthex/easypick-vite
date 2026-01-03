@@ -54,9 +54,9 @@ const recentSearches = [
 
 const searchResults = {
   "cgv": [
-    { id: 1, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화" },
-    { id: 2, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화" },
-    { id: 3, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화" },
+    { id: 1, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 2, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 3, name: "CGV 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
   ],
   "cgv 건대입구역": [
     { id: 1, name: "CGV 건대입구역", address: "서울 광진구 아차산로 30길 26", distance: "900m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" }
@@ -90,11 +90,15 @@ const places = [
   },
 ]
 
+interface SheetRef {
+  snapTo: (index: number) => void
+}
+
 export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [currentSnapPoint, setCurrentSnapPoint] = useState(1);
-  const ref = useRef<Sheet>(null);
+  const ref = useRef<SheetRef>(null);
   const navigate = useNavigate();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
