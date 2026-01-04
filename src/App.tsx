@@ -348,7 +348,11 @@ export default function Home() {
                                 <div>
                                   <div className="flex items-center space-x-0.5">
                                     <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                                    <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
+                                    <img src={chevronRightIcon} width="20" height="20" alt="이동하기" onClick={(e) => {
+                                      e.stopPropagation()
+                                      e.preventDefault()
+                                      navigate('/card-detail')
+                                    }} />
                                   </div>
                                   <div className="text-base font-semibold mb-[3px]">{card.spot}</div>
                                   <div className="text-[13px] text-[#6D727A]">{card.description}</div>

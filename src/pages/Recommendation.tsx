@@ -35,6 +35,7 @@ import deleteIcon from '@/assets/images/icons/delete.png';
 import chevronRightIcon from '@/assets/images/icons/chevron_right.png';
 import nearMeIcon from '@/assets/images/icons/near_me.png';
 import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const places = [
   {
@@ -194,6 +195,7 @@ export default function Recommendation() {
   const [spendingAmounts, setSpendingAmounts] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [doesSpendingExist, _] = useState<boolean>(true); // 소비금액 입력 여부
+  const navigate = useNavigate();
 
   const toggleCategory = (categoryName: string) => {
     const newSelected = new Set(selectedCategories);
@@ -296,7 +298,11 @@ export default function Recommendation() {
                 <div className="flex-1">
                   <div className="flex items-center mb-1">
                     <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                    {doesSpendingExist && <img src={chevronRightIcon} width="20" height="20" alt="더보기" />}
+                    {doesSpendingExist && <img src={chevronRightIcon} width="20" height="20" alt="더보기" onClick={(e) => {
+                      e.stopPropagation()
+                      e.preventDefault()
+                      navigate('/card-detail')
+                    }} />}
                   </div>
                   <div className="font-semibold text-base">{doesSpendingExist ? card.spot : card.benefit}</div>
                   {doesSpendingExist && <div className="text-[13px] text-[#6D727A] mt-[3px]">{card.benefitDetail}</div>}

@@ -11,7 +11,7 @@ import shoppingIcon from '@/assets/images/icons/shopping.png';
 import checkoutIcon from '@/assets/images/icons/checkout.png';
 import chevronRightBlackIcon from '@/assets/images/icons/chevron_right_black.png';
 import closeRoundIcon from '@/assets/images/icons/close_round.png';
-import { Button } from "../ui/button";
+import { Button } from "../components/ui/button";
 import { Sheet } from "react-modal-sheet";
 
 const benefits = [
