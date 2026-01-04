@@ -125,10 +125,12 @@ export default function MyCards() {
             <div className="mr-1.5 font-semibold text-lg">보유 중인 카드</div>
             <div className="font-semibold text-large text-[#B4B4B4]">{ownedCards.length}</div>
           </div>
-          <Link to="/search" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
-            <img src={nearMeIcon} width="16" height="16" alt="주변 찾기" />
-            <div className="font-semibold text-[13px] text-[#5A5B64] leading-4">주변 찾기</div>
-          </Link>
+          {/* {selectedPlace !== '전체' && (
+            <Link to="/search" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
+              <img src={nearMeIcon} width="16" height="16" alt="주변 찾기" />
+              <div className="font-semibold text-[13px] text-[#5A5B64] leading-4">주변 찾기</div>
+            </Link>
+          )} */}
         </div>
         {selectedPlace === '뷰티' ? (
           <div className="flex-1 flex flex-col items-center justify-center mt-[166px]">

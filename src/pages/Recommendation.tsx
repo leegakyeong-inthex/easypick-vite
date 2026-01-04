@@ -215,7 +215,7 @@ export default function Recommendation() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [spendingAmounts, setSpendingAmounts] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [doesSpendingExist, _] = useState<boolean>(true); // 소비금액 입력 여부
+  const [doesSpendingExist, setDoesSpendingExist] = useState<boolean>(false); // 소비금액 입력 여부
   const navigate = useNavigate();
   const cards = doesSpendingExist ? myCards : recommendedCards;
 
@@ -271,10 +271,12 @@ export default function Recommendation() {
           <div className="font-semibold text-lg mb-2 ml-[18px]">내 소비성향 맞춤 카드</div>
           {doesSpendingExist ? (
             <>
-              <div className="mx-[18px] mb-2 flex items-center justify-between">
-                <div className="font-semibold text-[15px] text-[#6D727A]">총 {cards.length}개</div>
-                <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
-              </div>
+              {!doesSpendingExist && (
+                <div className="mx-[18px] mb-2 flex items-center justify-between">
+                  <div className="font-semibold text-[15px] text-[#6D727A]">총 {cards.length}개</div>
+                  <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
+                </div>
+              )}
               <div className="divide-y divide-solid divide-[#F4F4F4] px-[18px]">
                 {cards.map((card, i) => (
                   <div key={card.name+i} className="pt-[15px] pl-[12px] pb-[13px]">
@@ -319,23 +321,24 @@ export default function Recommendation() {
                 <div key={card.name+i} className="flex items-center py-[8.5px] px-[10.5px]">
                   <img src={card.image} width="54" height="86" alt={card.name} className="mr-[12.5px]" />
                   <div className="flex-1">
-                    <div className="flex items-center mb-1">
-                      <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                      {doesSpendingExist && <img src={chevronRightIcon} width="20" height="20" alt="더보기" onClick={(e) => {
+                    <div className="flex items-center mb-1" onClick={(e) => {
                         e.stopPropagation()
                         e.preventDefault()
                         navigate('/card-detail')
-                      }} />}
+                      }}
+                    >
+                      <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
+                      <img src={chevronRightIcon} width="20" height="20" alt="더보기" />
                     </div>
                     <div className="font-semibold text-base">{doesSpendingExist ? card.spot : card.benefit}</div>
                     {doesSpendingExist && <div className="text-[13px] text-[#6D727A] mt-[3px]">{card.benefitDetail}</div>}
                   </div>
                 </div>
-                {selectedPlace !== '전체' && (
+                {/* {selectedPlace !== '전체' && (
                   <div className="w-full px-[18px]">
                     <Button className="h-10 mb-6 bg-[#0B0D0F] font-medium text-sm pt-3 pb-[11px] leading-[17px] rounded[10px]">더 나은 혜택 카드 보기</Button>
                   </div>
-                )}
+                )} */}
               </div>
             ))}
           </div>
@@ -501,7 +504,8 @@ export default function Recommendation() {
                 if (doesSpendingExist) {
                   setStep(1);
                 } else {
-                  setStep(3);
+                  setDoesSpendingExist(true)
+                  setStep(1)
                 }
               }}
             />

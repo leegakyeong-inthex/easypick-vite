@@ -220,7 +220,7 @@ export default function Home() {
 
   return (
     <>
-      <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover rounded-b-2xl" />
+      <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />
 
       <div className="absolute top-0 w-full h-[60px] rounded-b-2xl flex justify-center bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
         <div className="w-fit h-fit flex items-center mt-1.5 rounded-full font-semibold text-base border border-[#EBEBEB] p-px bg-[#F2F2F2] leading-none">
@@ -271,7 +271,7 @@ export default function Home() {
         ref={ref}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        snapPoints={[0, 494, 654, 1]}
+        snapPoints={[0, 494, 0.75, 1]}
         // detent="content"
         initialSnap={2}
         className="bottomSheet"
@@ -345,13 +345,14 @@ export default function Home() {
                               <div className="flex items-center">
                                 <img src={card.image} width="49" height="78" alt={card.name} className="mr-5" />
                                 <div>
-                                  <div className="flex items-center space-x-0.5">
-                                    <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                                    <img src={chevronRightIcon} width="20" height="20" alt="이동하기" onClick={(e) => {
+                                  <div className="flex items-center space-x-0.5" onClick={(e) => {
                                       e.stopPropagation()
                                       e.preventDefault()
                                       navigate('/card-detail')
-                                    }} />
+                                    }}
+                                  >
+                                    <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
+                                    <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
                                   </div>
                                   <div className="text-base font-semibold mb-[3px]">{card.spot}</div>
                                   <div className="text-[13px] text-[#6D727A]">{card.description}</div>
@@ -361,6 +362,12 @@ export default function Home() {
                             </div>
                           </div>
                         ))}
+                      </div>
+                      <div className="px-[18px] mb-8">
+                        <Button className="h-[42px] flex items-center justify-center bg-[#F0F2F4] font-medium text-[#5A5B64] text-sm">
+                          <div className="-mr-2">더보기</div>
+                          <img src={chevronRightIcon} width="20" height="20" alt="더보기" className="rotate-90" />
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -532,7 +539,9 @@ export default function Home() {
                           }}
                         />
                         <div className="ml-[5px] text-lg font-semibold">{selectedCard}</div>
-                        <div className="ml-auto rounded-full px-3 py-[7px] border border-[#EBEBEB] text-[#5A5B64] text-[13px] font-semibold">카드 상세</div>
+                        <div className="ml-auto rounded-full px-3 py-[7px] border border-[#EBEBEB] text-[#5A5B64] text-[13px] font-semibold" onClick={() => {
+                          navigate('/card-detail')
+                        }}>카드 상세</div>
                       </div>
                       <div className="divide-y divide-solid divide-[#F4F4F4]">
                         {cardBenefits.map((benefit) => (
@@ -785,13 +794,14 @@ export default function Home() {
                           <div className="flex items-center">
                             <img src={card.image} width="49" height="78" alt={card.name} className="mr-5" />
                             <div>
-                              <div className="flex items-center space-x-0.5">
-                                <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                                <img src={chevronRightIcon} width="20" height="20" alt="이동하기" onClick={(e) => {
+                              <div className="flex items-center space-x-0.5" onClick={(e) => {
                                   e.stopPropagation()
                                   e.preventDefault()
                                   navigate('/card-detail')
-                                }} />
+                                }}
+                              >
+                                <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
+                                <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
                               </div>
                               <div className="text-base font-semibold">{card.spot}</div>
                               <div className="text-[13px] text-[#6D727A]">{card.description}</div>

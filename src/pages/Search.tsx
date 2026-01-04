@@ -117,9 +117,9 @@ export default function Search() {
 
   return (
     <>
-      <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover rounded-b-2xl" />
+      {isSheetOpen && <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />}
       <div className="flex flex-col min-h-full bg-white">
-        <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50 bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+        <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50 bg-white" style={{ boxShadow: isSheetOpen ? '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' : 'none' }}>
           <div className="flex items-center justify-center mr-2.5 min-w-6">
             <img
               src={arrowLeftIcon}
