@@ -22,6 +22,9 @@ import card3 from '@/assets/images/card-3.png';
 import card4 from '@/assets/images/card-4.png';
 import card5 from '@/assets/images/card-5.png';
 import { Button } from '@/components/ui/button';
+import { Sheet } from 'react-modal-sheet';
+import closeIcon from '@/assets/images/icons/close.png';
+import SheetHeader from '@/components/SheetHeader';
 
 const places = [
   {
@@ -91,6 +94,7 @@ const ownedCards = [
 
 export default function MyCards() {
   const [selectedPlace, setSelectedPlace] = useState<string>('전체');
+  const [isBetterCardSheetOpen, setIsBetterCardSheetOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -145,7 +149,7 @@ export default function MyCards() {
                   </div>
                   {selectedPlace !== '전체' && (
                     <div className="w-full px-[18px]">
-                      <Button className="h-10 mb-6 bg-[#0B0D0F] font-medium text-sm pt-3 pb-[11px] leading-[17px] rounded[10px]">더 나은 혜택 카드 보기</Button>
+                      <Button className="h-10 mb-6 bg-[#0B0D0F] font-medium text-sm pt-3 pb-[11px] leading-[17px] rounded[10px]" onClick={() => setIsBetterCardSheetOpen(true)}>더 나은 혜택 카드 보기</Button>
                     </div>
                   )}
                 </div>
@@ -156,6 +160,45 @@ export default function MyCards() {
               <Button className="size-fit py-[17.5px] px-6 font-medium text-sm">추천 카드 보러 가기</Button>
             </div>
           </>
+        )}
+        {isBetterCardSheetOpen && (
+          <Sheet
+            isOpen={isBetterCardSheetOpen}
+            onClose={() => setIsBetterCardSheetOpen(false)}
+            snapPoints={[0, 510, 1]}
+            initialSnap={1}
+          >
+            <Sheet.Container>
+              <SheetHeader />
+              <Sheet.Content>
+                <div className="mb-20 overflow-x-hidden overflow-y-scroll">
+                  <div className="px-5 flex items-center justify-between mb-8">
+                    <div className="font-semibold text-lg leading-[25px]">더 나은 {selectedPlace} 혜택 카드</div>
+                    <img
+                      src={closeIcon}
+                      width="24"
+                      height="24"
+                      alt="닫기"
+                      className="cursor-pointer"
+                      onClick={() => setIsBetterCardSheetOpen(false)}
+                    />
+                  </div>
+                  <div className="divide-y divide-solid divide-[#F4F4F4]">
+                    {ownedCards.map((card, i) => (
+                      <div key={card.name+i} className="flex items-center py-4 px-5">
+                        <img src={card.image} width="54" height="86" alt={card.name} className="mr-5" />
+                        <div className="flex-1">
+                          <div className="font-medium text-[#6D727A] text-[13px] mb-1">{card.name}</div>
+                          <div className="font-semibold text-base">{card.benefit}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Sheet.Content>
+            </Sheet.Container>
+            <Sheet.Backdrop onClick={() => setIsBetterCardSheetOpen(false)} />
+          </Sheet>
         )}
       </div>
     </>

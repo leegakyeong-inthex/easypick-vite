@@ -23,6 +23,7 @@ import callIcon from '@/assets/images/icons/call.png';
 import bookmarkIcon from '@/assets/images/icons/bookmark.png';
 import grayDotIcon from '@/assets/images/icons/gray-dot.png';
 import closeIcon from '@/assets/images/icons/close.png';
+import checkSmallIcon from '@/assets/images/icons/check_small.png';
 
 // Card and photo imports
 import card1 from '@/assets/images/card-1.png';
@@ -33,6 +34,7 @@ import mcdonaldsImg from '@/assets/images/mcdonalds.png';
 import eventBannerImg from '@/assets/images/event-banner.png';
 import photo1 from '@/assets/images/photo-1.png';
 import photo2 from '@/assets/images/photo-2.png';
+import map1 from '@/assets/images/map-1.png';
 
 const places = [
   {
@@ -216,17 +218,11 @@ export default function Home() {
     setIsOpen(true)
   }, [])
 
-  // useEffect(() => {
-  //   if (selectedBenefit === 'place') {
-  //     snapTo(2)
-  //   } else {
-  //     snapTo(3)
-  //   }
-  // }, [selectedBenefit])
-
   return (
     <>
-      <div className="absolute top-0 w-full h-[60px] rounded-b-2xl flex justify-center" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+      <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover rounded-b-2xl" />
+
+      <div className="absolute top-0 w-full h-[60px] rounded-b-2xl flex justify-center bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
         <div className="w-fit h-fit flex items-center mt-1.5 rounded-full font-semibold text-base border border-[#EBEBEB] p-px bg-[#F2F2F2] leading-none">
           <div
             className={`rounded-full px-3.5 py-[9px] ${selectedBenefit === 'place' ? 'selectedBenefit' : 'unselectedBenefit' }`}
@@ -328,7 +324,10 @@ export default function Home() {
                         </div>
                         <div className="flex items-center space-x-1.5">
                           {cardTypes.map((type) => (
-                            <div key={type} className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full leading-5">{type}</div>
+                            <div key={type} className={`py-2.5 h-10 text-[15px] shrink-0 rounded-full leading-5 ${type === '적립형' ? 'bg-[#0B0D0F] text-white pl-2 pr-3.5' : 'bg-[#F7F8F8] text-[#5A5B64] px-3.5'}`}>
+                              {type === '적립형' && <img src={checkSmallIcon} width="20" height="20" alt="체크 아이콘" className="mr-1 inline-block" />}
+                              {type}
+                            </div>
                           ))}
                         </div>
                       </div>

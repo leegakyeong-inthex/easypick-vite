@@ -24,6 +24,7 @@ import locationOnIcon from '@/assets/images/icons/location_on.png';
 import callGrayIcon from '@/assets/images/icons/call_gray.png';
 import languageIcon from '@/assets/images/icons/language.png';
 import SheetHeader from "@/components/SheetHeader";
+import map1 from '@/assets/images/map-1.png';
 
 const spotCards = [
   {
@@ -115,288 +116,291 @@ export default function Search() {
   const isExpanded = currentSnapPoint === 3;
 
   return (
-    <div className="flex flex-col min-h-full bg-white">
-      <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50">
-        <div className="flex items-center justify-center mr-2.5 min-w-6">
-          <img
-            src={arrowLeftIcon}
-            width="24"
-            height="24"
-            alt="뒤로가기"
-            onClick={() => {
-              navigate(-1);
-            }}
+    <>
+      <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover rounded-b-2xl" />
+      <div className="flex flex-col min-h-full bg-white">
+        <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50 bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+          <div className="flex items-center justify-center mr-2.5 min-w-6">
+            <img
+              src={arrowLeftIcon}
+              width="24"
+              height="24"
+              alt="뒤로가기"
+              onClick={() => {
+                navigate(-1);
+              }}
+            />
+          </div>
+          <Input
+            placeholder="검색어를 입력하세요"
+            className="w-full h-10"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
         </div>
-        <Input
-          placeholder="검색어를 입력하세요"
-          className="w-full h-10"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
 
-      {/* Recent Searches or Search Results Overlay */}
-      {!isSheetOpen && (
-        <div className="pb-4 overflow-y-auto">
-          {showRecentSearches ? (
-            <div>
-              <div className="mt-2 flex items-center space-x-4 overflow-x-scroll pb-[19px] px-[18px] border-b border-[#F4F4F4]">
-                {places.map((place) => (
-                  <div
-                    key={place.name}
-                    className="flex flex-col items-center shrink-0"
-                  >
-                    <img src={place.iconUrl} width="52" height="52" alt={place.name} className="block mb-[5px]" />
-                    <div className="font-medium text-sm">{place.name}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="px-[18px] flex items-center justify-between mb-3.5 mt-5">
-                <div className="text-[15px] font-semibold">최근 검색</div>
-                <div className="text-[13px] text-[#686B70]">전체 삭제</div>
-              </div>
-              <div className="space-y-3">
-                {recentSearches.map((search, index) => (
-                  <div
-                    key={index}
-                    className="px-[18px] mb-[0px] flex items-center justify-between cursor-pointer py-3.5 text-base font-medium border-b border-[#F4F4F4]"
-                    onClick={() => setSearchInput(search)}
-                  >
-                    <div className="flex items-center">
-                      <img src={exploreNearbyIcon} width="28" height="28" alt="최근 검색어" className="mr-[4.5px]" />
-                      <div>{search}</div>
-                    </div>
-                    <img src={closeIcon} width="20" height="20" alt="삭제" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="mt-4">
-              <div className="space-y-2">
-                {currentResults.length > 0 ? (
-                  currentResults.map((result) => (
+        {/* Recent Searches or Search Results Overlay */}
+        {!isSheetOpen && (
+          <div className="pb-4 overflow-y-auto">
+            {showRecentSearches ? (
+              <div>
+                <div className="mt-2 flex items-center space-x-4 overflow-x-scroll pb-[19px] px-[18px] border-b border-[#F4F4F4]">
+                  {places.map((place) => (
                     <div
-                      key={result.id}
+                      key={place.name}
+                      className="flex flex-col items-center shrink-0"
+                    >
+                      <img src={place.iconUrl} width="52" height="52" alt={place.name} className="block mb-[5px]" />
+                      <div className="font-medium text-sm">{place.name}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="px-[18px] flex items-center justify-between mb-3.5 mt-5">
+                  <div className="text-[15px] font-semibold">최근 검색</div>
+                  <div className="text-[13px] text-[#686B70]">전체 삭제</div>
+                </div>
+                <div className="space-y-3">
+                  {recentSearches.map((search, index) => (
+                    <div
+                      key={index}
                       className="px-[18px] mb-[0px] flex items-center justify-between cursor-pointer py-3.5 text-base font-medium border-b border-[#F4F4F4]"
-                      onClick={() => setIsSheetOpen(true)}
+                      onClick={() => setSearchInput(search)}
                     >
                       <div className="flex items-center">
-                        <img src={exploreNearbyIcon} width="28" height="28" alt="최근 검색어" className="mr-2" />
-                        <div>
+                        <img src={exploreNearbyIcon} width="28" height="28" alt="최근 검색어" className="mr-[4.5px]" />
+                        <div>{search}</div>
+                      </div>
+                      <img src={closeIcon} width="20" height="20" alt="삭제" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4">
+                <div className="space-y-2">
+                  {currentResults.length > 0 ? (
+                    currentResults.map((result) => (
+                      <div
+                        key={result.id}
+                        className="px-[18px] mb-[0px] flex items-center justify-between cursor-pointer py-3.5 text-base font-medium border-b border-[#F4F4F4]"
+                        onClick={() => setIsSheetOpen(true)}
+                      >
+                        <div className="flex items-center">
+                          <img src={exploreNearbyIcon} width="28" height="28" alt="최근 검색어" className="mr-2" />
                           <div>
-                            <div className="flex items-center space-x-[5px] mb-[5px]">
-                              <div className="font-medium text-base leading-[19px]">{result.name}</div>
-                              <div className="font-medium text-xs text-[#B2B2B2]">{result.category}</div>
+                            <div>
+                              <div className="flex items-center space-x-[5px] mb-[5px]">
+                                <div className="font-medium text-base leading-[19px]">{result.name}</div>
+                                <div className="font-medium text-xs text-[#B2B2B2]">{result.category}</div>
+                              </div>
+                              <div className="font-medium text-[13px] text-[#6D727A] leading-4">{result.address}</div>
                             </div>
-                            <div className="font-medium text-[13px] text-[#6D727A] leading-4">{result.address}</div>
                           </div>
                         </div>
+                        <div className="h-[25px] px-[9px] rounded-full border border-[#EBEBEB] text-[#5A5B64] text-xs font-medium leading-[23px]">{result.distance}</div>
                       </div>
-                      <div className="h-[25px] px-[9px] rounded-full border border-[#EBEBEB] text-[#5A5B64] text-xs font-medium leading-[23px]">{result.distance}</div>
-                    </div>
-                  ))
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-[#999]">검색 결과가 없습니다</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Bottom Sheet */}
+        <Sheet
+          ref={ref}
+          isOpen={isSheetOpen}
+          onClose={() => setIsSheetOpen(false)}
+          snapPoints={[0, 165, 516, 1]}
+          initialSnap={2}
+          className="bottomSheet"
+          disableDismiss
+          onSnap={(snapIndex) => setCurrentSnapPoint(snapIndex)}
+        >
+          <Sheet.Container
+            style={{
+              zIndex: 1000,
+              boxShadow: currentSnapPoint === 3 ? '' : '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
+              borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px'
+            }}
+            className="max-h-[750px]"
+          >
+            {currentSnapPoint === 3 ? (
+              <Sheet.Header>
+                <div className="h-5"></div>
+              </Sheet.Header>
+            ) : (
+              <SheetHeader />
+            )}
+            <Sheet.Content>
+              <div className="absolute top-0 bg-white w-full">
+                {isDetailedResult ? (
+                  // Detailed view for single result
+                  <div className="pb-8">
+                    {currentResults.map((result) => (
+                      <div key={result.id}>
+                        <div className="px-[18px] leading-none mb-3.5 pt-4">
+                          <div className="flex items-center justify-between mb-1">
+                            <div className="text-xl font-semibold">{result.name}</div>
+                            {/* <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                              <img src={bookmarkIcon} width="20" height="20" alt="" />
+                            </div> */}
+                          </div>
+                          <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
+                            <div>{result.category}</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" />
+                            <div>{result.distance}</div>
+                          </div>
+                          <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
+                          <div className="flex items-center space-x-1.5 text-sm font-medium">
+                            <div>영업중</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" />
+                            <div className="text-[#6D727A]">00:00 - 24:00</div>
+                          </div>
+                        </div>
+
+                        <div className="px-[18px] flex items-center space-x-2.5 mb-4">
+                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                            <img src={directionsIcon} width="20" height="20" alt="방향" />
+                          </button>
+                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                            <img src={callIcon} width="20" height="20" alt="전화" />
+                          </button>
+                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                            <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
+                          </button>
+                        </div>
+
+                        <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                          {spotCards.map((card) => (
+                            <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                              <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
+                              <div className="ml-3.5 font-medium">
+                                <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
+                                <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
+                                <div className="text-[15px] font-semibold">{card.benefit}</div>
+                              </div>
+                              <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                          {photos.map((photo, i) => (
+                            <img key={photo+i} src={photo} width="149" height="100" alt="" />
+                          ))}
+                        </div>
+
+                        <div className="mb-4">
+                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                            <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
+                            <div className="text-sm font-semibold ">영업중</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
+                            <div className="text-sm text-[#6D727A]">24:00 까지</div>
+                          </div>
+                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                            <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
+                            <div className="text-sm">{result.address}</div>
+                          </div>
+                          {result.phone && (
+                            <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                              <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
+                              <div className="text-sm font-medium">{result.phone}</div>
+                            </div>
+                          )}
+                          {result.website && (
+                            <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
+                              <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
+                              <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 ) : (
-                  <div className="text-center py-8 text-[#999]">검색 결과가 없습니다</div>
+                  // Expanded view showing all details
+                  <div className="pb-8 divide-y divide-[#F4F4F4]">
+                    {currentResults.map((result) => (
+                      <div key={result.id} className="py-2">
+                        <div className="px-[18px] leading-none mb-4 pt-4">
+                          <div className="flex items-center justify-between mb-1">
+                            <div className="text-xl font-semibold">{result.name}</div>
+                            <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                              <img src={bookmarkIcon} width="20" height="20" alt="" />
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
+                            <div>{result.category}</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" />
+                            <div>{result.distance}</div>
+                          </div>
+                          <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
+                          <div className="flex items-center space-x-1.5 text-sm font-medium">
+                            <div>영업중</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" />
+                            <div className="text-[#6D727A]">00:00 - 24:00</div>
+                          </div>
+                        </div>
+
+                        <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                          {spotCards.map((card) => (
+                            <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                              <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
+                              <div className="ml-3.5 font-medium">
+                                <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
+                                <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
+                                <div className="text-[15px] font-semibold">{card.benefit}</div>
+                              </div>
+                              <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                          {photos.map((photo, i) => (
+                            <img key={photo+i} src={photo} width="149" height="100" alt="" />
+                          ))}
+                        </div>
+
+                        {/* <div className="mb-4">
+                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                            <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
+                            <div className="text-sm font-semibold ">영업중</div>
+                            <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
+                            <div className="text-sm text-[#6D727A]">24:00 까지</div>
+                          </div>
+                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                            <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
+                            <div className="text-sm">{result.address}</div>
+                          </div>
+                          {result.phone && (
+                            <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                              <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
+                              <div className="text-sm font-medium">{result.phone}</div>
+                            </div>
+                          )}
+                          {result.website && (
+                            <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
+                              <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
+                              <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
+                            </div>
+                          )}
+                        </div> */}
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Bottom Sheet */}
-      <Sheet
-        ref={ref}
-        isOpen={isSheetOpen}
-        onClose={() => setIsSheetOpen(false)}
-        snapPoints={[0, 165, 516, 1]}
-        initialSnap={2}
-        className="bottomSheet"
-        disableDismiss
-        onSnap={(snapIndex) => setCurrentSnapPoint(snapIndex)}
-      >
-        <Sheet.Container
-          style={{
-            zIndex: 1000,
-            boxShadow: currentSnapPoint === 3 ? '' : '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
-            borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px'
-          }}
-          className="max-h-[750px]"
-        >
-          {currentSnapPoint === 3 ? (
-            <Sheet.Header>
-              <div className="h-5"></div>
-            </Sheet.Header>
-          ) : (
-            <SheetHeader />
-          )}
-          <Sheet.Content>
-            <div className="absolute top-0 bg-white w-full">
-              {isDetailedResult ? (
-                // Detailed view for single result
-                <div className="pb-8">
-                  {currentResults.map((result) => (
-                    <div key={result.id}>
-                      <div className="px-[18px] leading-none mb-3.5 pt-4">
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="text-xl font-semibold">{result.name}</div>
-                          <div className="rounded-full bg-[#EEEEEE] p-1.5">
-                            <img src={bookmarkIcon} width="20" height="20" alt="" />
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
-                          <div>{result.category}</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div>{result.distance}</div>
-                        </div>
-                        <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
-                        <div className="flex items-center space-x-1.5 text-sm font-medium">
-                          <div>영업중</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div className="text-[#6D727A]">00:00 - 24:00</div>
-                        </div>
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2.5 mb-4">
-                        <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                          <img src={directionsIcon} width="20" height="20" alt="방향" />
-                        </button>
-                        <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                          <img src={callIcon} width="20" height="20" alt="전화" />
-                        </button>
-                        <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                          <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
-                        </button>
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {spotCards.map((card) => (
-                          <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
-                            <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
-                            <div className="ml-3.5 font-medium">
-                              <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
-                              <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
-                              <div className="text-[15px] font-semibold">{card.benefit}</div>
-                            </div>
-                            <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {photos.map((photo, i) => (
-                          <img key={photo+i} src={photo} width="149" height="100" alt="" />
-                        ))}
-                      </div>
-
-                      <div className="mb-4">
-                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                          <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
-                          <div className="text-sm font-semibold ">영업중</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
-                          <div className="text-sm text-[#6D727A]">24:00 까지</div>
-                        </div>
-                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                          <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
-                          <div className="text-sm">{result.address}</div>
-                        </div>
-                        {result.phone && (
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
-                            <div className="text-sm font-medium">{result.phone}</div>
-                          </div>
-                        )}
-                        {result.website && (
-                          <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
-                            <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
-                            <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                // Expanded view showing all details
-                <div className="pb-8 divide-y divide-[#F4F4F4]">
-                  {currentResults.map((result) => (
-                    <div key={result.id} className="py-2">
-                      <div className="px-[18px] leading-none mb-4 pt-4">
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="text-xl font-semibold">{result.name}</div>
-                          <div className="rounded-full bg-[#EEEEEE] p-1.5">
-                            <img src={bookmarkIcon} width="20" height="20" alt="" />
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
-                          <div>{result.category}</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div>{result.distance}</div>
-                        </div>
-                        <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
-                        <div className="flex items-center space-x-1.5 text-sm font-medium">
-                          <div>영업중</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div className="text-[#6D727A]">00:00 - 24:00</div>
-                        </div>
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {spotCards.map((card) => (
-                          <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
-                            <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
-                            <div className="ml-3.5 font-medium">
-                              <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
-                              <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
-                              <div className="text-[15px] font-semibold">{card.benefit}</div>
-                            </div>
-                            <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {photos.map((photo, i) => (
-                          <img key={photo+i} src={photo} width="149" height="100" alt="" />
-                        ))}
-                      </div>
-
-                      {/* <div className="mb-4">
-                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                          <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
-                          <div className="text-sm font-semibold ">영업중</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
-                          <div className="text-sm text-[#6D727A]">24:00 까지</div>
-                        </div>
-                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                          <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
-                          <div className="text-sm">{result.address}</div>
-                        </div>
-                        {result.phone && (
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
-                            <div className="text-sm font-medium">{result.phone}</div>
-                          </div>
-                        )}
-                        {result.website && (
-                          <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
-                            <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
-                            <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
-                          </div>
-                        )}
-                      </div> */}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </Sheet.Content>
-        </Sheet.Container>
-      </Sheet>
-    </div>
+            </Sheet.Content>
+          </Sheet.Container>
+        </Sheet>
+      </div>
+    </>
   )
 }

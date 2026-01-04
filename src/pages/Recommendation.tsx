@@ -188,6 +188,27 @@ const recommendedCardsWithCategory = [
   },
 ]
 
+const myCards = [
+  {
+    name: "신한카드 MR.Life",
+    benefit: "공과금부터 쇼핑까지 생활혜택 10%,\n주요 생활영역 연 최대 60% 할인",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card2,
+  },
+  {
+    name: "디지로카 Las Vegas",
+    benefit: "국내외 가맹점 최대 2% 할인!\n가맹점 2~3개얼 무이자 할부",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card6,
+  },
+  {
+    name: "신한카드 MR.Life",
+    benefit: "공과금부터 쇼핑까지 생활혜택 10%,\n주요 생활영역 연 최대 60% 할인",
+    estimatedBenefit: "월 예상 혜택 17,453원",
+    image: card2,
+  },
+]
+
 export default function Recommendation() {
   const [selectedPlace, setSelectedPlace] = useState<string>('전체');
   const [step, setStep] = useState<number>(1);
@@ -196,6 +217,7 @@ export default function Recommendation() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [doesSpendingExist, _] = useState<boolean>(true); // 소비금액 입력 여부
   const navigate = useNavigate();
+  const cards = doesSpendingExist ? myCards : recommendedCards;
 
   const toggleCategory = (categoryName: string) => {
     const newSelected = new Set(selectedCategories);
@@ -243,85 +265,87 @@ export default function Recommendation() {
 
   return (
     <>
-      <div className="flex flex-col pb-20">
-        <div className="font-bold text-xl mb-6 ml-[18px]">카드 추천</div>
-        <div className="font-semibold text-lg mb-4 ml-[18px]">내 소비성향 맞춤 카드</div>
-        {doesSpendingExist ? (
-          <>
-            <div className="mx-[18px] mb-2 flex items-center justify-between">
-              <div className="font-semibold text-[15px] text-[#6D727A]">총 {recommendedCards.length}개</div>
-              <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
-            </div>
-            <div className="divide-y divide-solid divide-[#F4F4F4] px-[18px]">
-              {recommendedCards.map((card, i) => (
-                <div key={card.name+i} className="pt-[15px] pl-[12px] pb-[13px]">
-                  <div className="flex">
-                    <img src={card.image} width="67" height="102" alt={card.name} className="mr-4 object-contain" />
-                    <div className="flex-1">
-                      <div className="font-medium text-[#6D727A] text-xs mb-1.5">{card.name}</div>
-                      <div className="font-semibold text-sm whitespace-pre-line mb-[11px]">{card.benefit}</div>
-                      <div className="w-fit px-[9px] font-medium text-xs bg-[#D6E7FF] text-[#0068FF] rounded-full h-6 flex items-center justify-center">{card.estimatedBenefit}</div>
+      {step === 1 && (
+        <div className="flex flex-col pb-20">
+          <div className="font-bold text-xl mb-6 ml-[18px]">카드 추천</div>
+          <div className="font-semibold text-lg mb-2 ml-[18px]">내 소비성향 맞춤 카드</div>
+          {doesSpendingExist ? (
+            <>
+              <div className="mx-[18px] mb-2 flex items-center justify-between">
+                <div className="font-semibold text-[15px] text-[#6D727A]">총 {cards.length}개</div>
+                <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
+              </div>
+              <div className="divide-y divide-solid divide-[#F4F4F4] px-[18px]">
+                {cards.map((card, i) => (
+                  <div key={card.name+i} className="pt-[15px] pl-[12px] pb-[13px]">
+                    <div className="flex">
+                      <img src={card.image} width="67" height="102" alt={card.name} className="mr-4 object-contain" />
+                      <div className="flex-1">
+                        <div className="font-medium text-[#6D727A] text-xs mb-1.5">{card.name}</div>
+                        <div className="font-semibold text-sm whitespace-pre-line mb-[11px]">{card.benefit}</div>
+                        <div className="w-fit px-[9px] font-medium text-xs bg-[#D6E7FF] text-[#0068FF] rounded-full h-6 flex items-center justify-center">{card.estimatedBenefit}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="px-[18px] mb-3.5">
-            <img src={eventBanner2} width="339" height="124" className="w-full" />
-          </div>
-        )}
-        <div className="px-[18px] mb-[30px]">
-          <Button className="font-medium text-sm" onClick={() => setStep(doesSpendingExist ? 4 : 2)}>{doesSpendingExist ? '맞춤 카드 더보기' : '내 소비금액 입력하고 맞춤 카드 확인하기'}</Button>
-        </div>
-        <div className="font-semibold text-lg mb-[19px] ml-[18px]">혜택별 추천 카드</div>
-        <div className="flex items-center space-x-4 overflow-x-scroll pb-[19px] px-[18px] border-b border-[#F4F4F4]">
-          {places.map((place) => (
-            <div
-              key={place.name}
-              className="flex flex-col items-center shrink-0"
-              onClick={() => {
-                setSelectedPlace(place.name);
-              }}
-            >
-              <img src={selectedPlace === place.name ? place.selectedIconUrl : place.iconUrl} width="52" height="52" alt={place.name} className="block mb-[5px]" />
-              <div className="font-medium text-sm">{place.name}</div>
-            </div>
-          ))}
-        </div>
-        <div className="divide-y divide-solid divide-[#F4F4F4]">
-          {ownedCards.map((card, i) => (
-            <div key={card.name+i}>
-              <div key={card.name+i} className="flex items-center py-[8.5px] px-[10.5px]">
-                <img src={card.image} width="54" height="86" alt={card.name} className="mr-[12.5px]" />
-                <div className="flex-1">
-                  <div className="flex items-center mb-1">
-                    <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                    {doesSpendingExist && <img src={chevronRightIcon} width="20" height="20" alt="더보기" onClick={(e) => {
-                      e.stopPropagation()
-                      e.preventDefault()
-                      navigate('/card-detail')
-                    }} />}
-                  </div>
-                  <div className="font-semibold text-base">{doesSpendingExist ? card.spot : card.benefit}</div>
-                  {doesSpendingExist && <div className="text-[13px] text-[#6D727A] mt-[3px]">{card.benefitDetail}</div>}
-                </div>
+                ))}
               </div>
-              {selectedPlace !== '전체' && (
-                <div className="w-full px-[18px]">
-                  <Button className="h-10 mb-6 bg-[#0B0D0F] font-medium text-sm pt-3 pb-[11px] leading-[17px] rounded[10px]">더 나은 혜택 카드 보기</Button>
-                </div>
-              )}
+            </>
+          ) : (
+            <div className="px-[18px] mb-3.5">
+              <img src={eventBanner2} width="339" height="124" className="w-full" />
             </div>
-          ))}
-        </div>
-        {doesSpendingExist && (
-          <div className="px-[18px] mt-3 mb-14">
-            <Button className="bg-[#F3F3F3] text-black leading-5" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
+          )}
+          <div className="px-[18px] mb-[30px]">
+            <Button className="font-medium text-sm" onClick={() => setStep(doesSpendingExist ? 4 : 2)}>{doesSpendingExist ? '맞춤 카드 더보기' : '내 소비금액 입력하고 맞춤 카드 확인하기'}</Button>
           </div>
-        )}
-      </div>
+          <div className="font-semibold text-lg mb-[19px] ml-[18px]">혜택별 추천 카드</div>
+          <div className="flex items-center space-x-4 overflow-x-scroll pb-[19px] px-[18px] border-b border-[#F4F4F4]">
+            {places.map((place) => (
+              <div
+                key={place.name}
+                className="flex flex-col items-center shrink-0"
+                onClick={() => {
+                  setSelectedPlace(place.name);
+                }}
+              >
+                <img src={selectedPlace === place.name ? place.selectedIconUrl : place.iconUrl} width="52" height="52" alt={place.name} className="block mb-[5px]" />
+                <div className="font-medium text-sm">{place.name}</div>
+              </div>
+            ))}
+          </div>
+          <div className="divide-y divide-solid divide-[#F4F4F4]">
+            {ownedCards.map((card, i) => (
+              <div key={card.name+i}>
+                <div key={card.name+i} className="flex items-center py-[8.5px] px-[10.5px]">
+                  <img src={card.image} width="54" height="86" alt={card.name} className="mr-[12.5px]" />
+                  <div className="flex-1">
+                    <div className="flex items-center mb-1">
+                      <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
+                      {doesSpendingExist && <img src={chevronRightIcon} width="20" height="20" alt="더보기" onClick={(e) => {
+                        e.stopPropagation()
+                        e.preventDefault()
+                        navigate('/card-detail')
+                      }} />}
+                    </div>
+                    <div className="font-semibold text-base">{doesSpendingExist ? card.spot : card.benefit}</div>
+                    {doesSpendingExist && <div className="text-[13px] text-[#6D727A] mt-[3px]">{card.benefitDetail}</div>}
+                  </div>
+                </div>
+                {selectedPlace !== '전체' && (
+                  <div className="w-full px-[18px]">
+                    <Button className="h-10 mb-6 bg-[#0B0D0F] font-medium text-sm pt-3 pb-[11px] leading-[17px] rounded[10px]">더 나은 혜택 카드 보기</Button>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {doesSpendingExist && (
+            <div className="px-[18px] mt-3 mb-14">
+              <Button className="bg-[#F3F3F3] text-black leading-5" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
+            </div>
+          )}
+        </div>
+      )}
 
       {step === 2 && (
         <div className="absolute z-10 top-0 left-0 w-full h-full bg-white flex flex-col">
@@ -468,16 +492,21 @@ export default function Recommendation() {
         <div className="absolute z-10 top-0 left-0 w-full h-full bg-white flex flex-col">
           <div className="flex px-[18px] mt-4 mb-[29px]">
             <img
-                src={arrowLeftIcon}
-                width="24"
-                height="24"
-                alt="뒤로가기"
-                onClick={() => {
+              src={arrowLeftIcon}
+              width="24"
+              height="24"
+              alt="뒤로가기"
+              className="object-contain mr-3"
+              onClick={() => {
+                if (doesSpendingExist) {
+                  setStep(1);
+                } else {
                   setStep(3);
-                }}
-              />
+                }
+              }}
+            />
+            <div className="font-bold text-xl">내 소비성향 맞춤 카드</div>
           </div>
-          <div className="font-bold text-xl mb-[30px] ml-[18px]">내 소비성향 맞춤 카드</div>
           <div className="mx-[18px] mb-3.5 flex items-center justify-between">
             <div className="font-semibold text-[15px] text-[#6D727A]">총 {recommendedCards.length}개</div>
             <div className="border border-[#EBEBEB] rounded-full h-[30px] px-[11px] py-[7px] text-[#5A5B64] font-semibold text-[13px]">월 소비금액 입력</div>
