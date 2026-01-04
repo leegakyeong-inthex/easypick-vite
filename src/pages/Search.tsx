@@ -113,7 +113,7 @@ export default function Search() {
   const currentResults = searchResults[searchInput.toLowerCase() as keyof typeof searchResults] || [];
   const showRecentSearches = !searchInput.trim();
   const isDetailedResult = currentResults.length === 1;
-  const isExpanded = currentSnapPoint === 3;
+  // const isExpanded = currentSnapPoint === 3;
 
   return (
     <>
