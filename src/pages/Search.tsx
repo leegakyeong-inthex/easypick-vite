@@ -25,6 +25,8 @@ import callGrayIcon from '@/assets/images/icons/call_gray.png';
 import languageIcon from '@/assets/images/icons/language.png';
 import SheetHeader from "@/components/SheetHeader";
 import map1 from '@/assets/images/map-1.png';
+import naverMapIcon from '@/assets/images/icons/naver_map.png';
+import kakaoMapIcon from '@/assets/images/icons/kakao_map.png';
 
 const spotCards = [
   {
@@ -102,6 +104,7 @@ export default function Search() {
   const [currentSnapPoint, setCurrentSnapPoint] = useState(1);
   const ref = useRef<SheetRef>(null);
   const navigate = useNavigate();
+  const [isDirectionSheetOpen, setIsDirectionSheetOpen] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchInput.trim()) {
@@ -265,7 +268,7 @@ export default function Search() {
                         </div>
 
                         <div className="px-[18px] flex items-center space-x-2.5 mb-4">
-                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full" onClick={() => setIsDirectionSheetOpen(true)}>
                             <img src={directionsIcon} width="20" height="20" alt="방향" />
                           </button>
                           <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
@@ -399,6 +402,41 @@ export default function Search() {
               </div>
             </Sheet.Content>
           </Sheet.Container>
+        </Sheet>
+
+        <Sheet
+          ref={ref}
+          isOpen={isDirectionSheetOpen}
+          onClose={() => setIsDirectionSheetOpen(false)}
+          snapPoints={[0, 171, 1]}
+          initialSnap={1}
+          className="bottomSheet"
+          disableDismiss
+          // onSnap={(snapIndex) => setCurrentSnapPoint(snapIndex)}
+        >
+          <Sheet.Container
+            style={{
+              zIndex: 1001,
+              boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
+              borderRadius: '18px 18px 0px 0px'
+            }}
+            className="max-h-[171px]"
+          >
+            <SheetHeader />
+            <Sheet.Content>
+              <div className="px-5 pt-[5px] flex flex-col space-y-[22px]">
+                <div className="flex items-center">
+                  <img src={naverMapIcon} width="36" height="36" alt="네이버 지도" className="mr-[15px]" />
+                  <div className="text-base font-medium">네이버 지도</div>
+                </div>
+                <div className="flex items-center">
+                  <img src={kakaoMapIcon} width="36" height="36" alt="네이버 지도" className="mr-[15px]" />
+                  <div className="text-base font-medium">카카오 맵</div>
+                </div>
+              </div>
+            </Sheet.Content>
+          </Sheet.Container>
+          <Sheet.Backdrop onClick={() => setIsDirectionSheetOpen(false)} />
         </Sheet>
       </div>
     </>

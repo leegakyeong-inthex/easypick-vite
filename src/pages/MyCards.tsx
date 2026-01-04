@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { Link } from "react-router";
+import { Link } from "react-router";
 import AddCircle from '@/assets/images/icons/add_circle.png';
 import allIcon from '@/assets/images/icons/all.png';
 import martIcon from '@/assets/images/icons/mart.png';
@@ -15,7 +15,7 @@ import beautySelectedIcon from '@/assets/images/icons/beauty_selected.png';
 import sportSelectedIcon from '@/assets/images/icons/sport_selected.png';
 import movieSelectedIcon from '@/assets/images/icons/movie_selected.png';
 import restaurantSelectedIcon from '@/assets/images/icons/restaurant_selected.png';
-// import nearMeIcon from '@/assets/images/icons/near_me.png';
+import nearMeIcon from '@/assets/images/icons/near_me.png';
 import card1 from '@/assets/images/card-1.png';
 import card2 from '@/assets/images/card-2.png';
 import card3 from '@/assets/images/card-3.png';
@@ -125,12 +125,12 @@ export default function MyCards() {
             <div className="mr-1.5 font-semibold text-lg">보유 중인 카드</div>
             <div className="font-semibold text-large text-[#B4B4B4]">{ownedCards.length}</div>
           </div>
-          {/* {selectedPlace !== '전체' && (
-            <Link to="/search" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
+          {selectedPlace !== '전체' && (
+            <Link to="" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
               <img src={nearMeIcon} width="16" height="16" alt="주변 찾기" />
               <div className="font-semibold text-[13px] text-[#5A5B64] leading-4">주변 찾기</div>
             </Link>
-          )} */}
+          )}
         </div>
         {selectedPlace === '뷰티' ? (
           <div className="flex-1 flex flex-col items-center justify-center mt-[166px]">
