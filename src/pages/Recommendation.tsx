@@ -342,11 +342,9 @@ export default function Recommendation() {
               </div>
             ))}
           </div>
-          {doesSpendingExist && (
-            <div className="px-[18px] mt-3 mb-14">
-              <Button className="bg-[#F3F3F3] text-black leading-5" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
-            </div>
-          )}
+          <div className="px-[18px] mt-3 mb-14">
+            <Button className="bg-[#F3F3F3] text-black leading-5" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
+          </div>
         </div>
       )}
 
@@ -566,7 +564,7 @@ export default function Recommendation() {
                 <div key={categoryName+i} className="mt-5 pb-6 px-[18px]">
                   <div className="flex items-center justify-between mb-4">
                     <div className="font-semibold text-lg">{categoryName}</div>
-                    <Link to="/search" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
+                    <Link to="" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
                       <img src={nearMeIcon} width="16" height="16" alt="주변 찾기" />
                       <div className="font-semibold text-[13px] text-[#5A5B64] leading-4">주변 찾기</div>
                     </Link>
