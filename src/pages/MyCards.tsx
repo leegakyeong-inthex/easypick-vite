@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import AddCircle from '@/assets/images/icons/add_circle.png';
 import allIcon from '@/assets/images/icons/all.png';
 import martIcon from '@/assets/images/icons/mart.png';
@@ -15,7 +15,7 @@ import beautySelectedIcon from '@/assets/images/icons/beauty_selected.png';
 import sportSelectedIcon from '@/assets/images/icons/sport_selected.png';
 import movieSelectedIcon from '@/assets/images/icons/movie_selected.png';
 import restaurantSelectedIcon from '@/assets/images/icons/restaurant_selected.png';
-import nearMeIcon from '@/assets/images/icons/near_me.png';
+// import nearMeIcon from '@/assets/images/icons/near_me.png';
 import card1 from '@/assets/images/card-1.png';
 import card2 from '@/assets/images/card-2.png';
 import card3 from '@/assets/images/card-3.png';
