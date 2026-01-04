@@ -193,7 +193,7 @@ export default function Recommendation() {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set());
   const [spendingAmounts, setSpendingAmounts] = useState<Record<string, string>>({});
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [doesSpendingExist, _] = useState<boolean>(true);
+  const [doesSpendingExist, _] = useState<boolean>(true); // 소비금액 입력 여부
 
   const toggleCategory = (categoryName: string) => {
     const newSelected = new Set(selectedCategories);
@@ -312,7 +312,7 @@ export default function Recommendation() {
         </div>
         {doesSpendingExist && (
           <div className="px-[18px] mt-3 mb-14">
-            <Button className="bg-[#F3F3F3] text-black" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
+            <Button className="bg-[#F3F3F3] text-black leading-5" onClick={() => setStep(5)}>쇼핑 추천 카드 더보기</Button>
           </div>
         )}
       </div>
@@ -510,7 +510,7 @@ export default function Recommendation() {
                 setStep(1);
               }}
             />
-            <div className="font-bold text-xl ml-[18px]">쇼핑 추천 카드</div>
+            <div className="font-bold text-xl ml-[18px]">혜택별 추천 카드</div>
           </div>
           <div className="flex">
             <div className="flex-1 h-[49px] flex items-center justify-center border-b-[2px] border-black font-semibold">신용카드</div>
@@ -518,7 +518,7 @@ export default function Recommendation() {
           </div>
           <div className="shrink-0 flex px-[18px] pt-4 overflow-x-scroll space-x-1.5">
             {spendingCategories.map((category) => (
-              <div key={category.name} className="shrink-0 rounded-full bg-[#F7F8F8] h-9 px-3.5 text-[#5A5B64] text-sm flex items-center justify-center">{category.name}</div>
+              <div key={category.name} className={`shrink-0 rounded-full h-9 px-3.5 text-sm flex items-center justify-center ${category.name === '마트' ? 'bg-[#0B0D0F] text-white' : 'bg-[#F7F8F8] text-[#5A5B64]'}`}>{category.name}</div>
             ))}
           </div>
           <div className="flex flex-col space-y-3 divide-y-[1px] divide-solid divide-[#F4F4F4]">

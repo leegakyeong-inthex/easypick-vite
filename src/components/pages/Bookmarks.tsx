@@ -229,12 +229,12 @@ export default function Bookmarks() {
         </Sheet>
         {isRemoveDialogOpen && (
           <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg py-5 px-4 w-[310px]">
+            <div className="bg-white rounded-lg py-5 px-[25px] w-[310px]">
               <div className="text-lg font-semibold text-[#1C1C1C] mb-[7px]">영화 그룹을 삭제할까요?</div>
               <div className="text-[#6D727A] font-medium text-[13px] mb-[27px]">그룹 내 장소도 함께 삭제됩니다.</div>
               <div className="flex space-x-2.5 w-full">
-                <Button variant="secondary" onClick={() => setIsRemoveDialogOpen(false)} className="flex-1">취소</Button>
-                <Button onClick={() => setIsRemoveDialogOpen(false)} className="flex-1">삭제</Button>
+                <Button variant="secondary" onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">취소</Button>
+                <Button onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">삭제</Button>
               </div>
             </div>
           </div>
@@ -259,17 +259,17 @@ export default function Bookmarks() {
           </div>
           <div className="divide-y divide-[#F4F4F4]">
             {bookmarkDetail.map((detail, index) => (
-              <div key={index} className="p-[18px]" onClick={() => setIsBookmarkEditSheetOpen(true)}>
+              <div key={index} className="p-[18px]">
                 <div className="flex items-center justify-between">
                   <div className="text-lg font-semibold mb-1 leading-none">{detail.name}</div>
-                  <img src={kebabMenuIcon} width="24" height="24" alt="더보기" />
+                  <img src={kebabMenuIcon} width="24" height="24" alt="더보기" onClick={() => setIsBookmarkEditSheetOpen(true)} />
                 </div>
                 <div className="text-[13px] font-medium mb-2.5 flex items-center leading-none">
                   {detail.category}
                   <img src={grayDotIcon} width="3" height="3" alt="구분점" className="mx-1" />
                   {detail.distance}
                 </div>
-                <div className="text-sm mb-1 leading-none">{detail.address}</div>
+                <div className="text-sm mb-1 leading-[17px]">{detail.address}</div>
                 <div className="text-sm text-[#6D727A] mb-[19px] leading-none">{detail.review}</div>
                 <div className="flex space-x-1.5 overflow-x-auto">
                   {detail.photos.map((photo, photoIndex) => (
@@ -343,8 +343,8 @@ export default function Bookmarks() {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <Button variant="secondary" onClick={() => setIsBookmarkMemoVisible(true)} className="flex-1">메모 추가</Button>
-                      <Button className="ml-[13px] flex-1">확인</Button>
+                      <Button variant="secondary" onClick={() => setIsBookmarkMemoVisible(true)} className="flex-1 leading-5">메모 추가</Button>
+                      <Button className="ml-[13px] flex-1 leading-5">확인</Button>
                     </div>
                   </div>
                 </Sheet.Content>

@@ -58,11 +58,11 @@ export default function SignUp() {
       <div className="w-full flex flex-col space-y-3 mb-[30px]">
         <Label htmlFor="password" >비밀번호</Label>
         <div className="relative w-full">
-          <Input id="password" placeholder="영문, 숫자, 특수문자 포함 8자 이상" />
+          <Input id="password" type="password" placeholder="영문, 숫자, 특수문자 포함 8자 이상" />
           <img src={visibility} width="16" height="16" alt="비밀번호 숨기기" className="absolute right-[17px] top-[calc(50%-8px)] cursor-pointer" />
         </div>
         <div className="relative w-full">
-          <Input id="password-check" placeholder="비밀번호 확인" />
+          <Input id="password-check" type="password" placeholder="비밀번호 확인" />
           <img src={visibility} width="16" height="16" alt="비밀번호 숨기기" className="absolute right-[17px] top-[calc(50%-8px)] cursor-pointer" />
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function SignUp() {
           <Input id="email-id" placeholder="이메일" className="flex-1" />
           <span>@</span>
           <Select>
-            <SelectTrigger className="flex-1" style={{ height: '50px' }}>
+              <SelectTrigger className="flex-1 border-[#EBEBEB] rounded-[10px] font-medium text-[#B4B4B4] text-base" style={{ height: '50px' }}>
               <SelectValue placeholder="선택" />
             </SelectTrigger>
             <SelectContent>
@@ -123,7 +123,7 @@ export default function SignUp() {
         </div>
       </div>
 
-      <Button className="w-full h-[54px] rounded-[12px] mb-[30px]" disabled={!termsAgreedAll}>
+      <Button className="w-full h-[54px] rounded-[12px]" disabled={!termsAgreedAll}>
         가입 완료
       </Button>
     </div>

@@ -103,7 +103,7 @@ export default function CardDetail() {
           </div>
         </div>
         <div className="px-[18px] py-7 border-b border-[#F4F4F4]">
-          <div className="mb-5 font-semibold text-lg">혜택 요약</div>
+          <div className="mb-5 font-semibold text-lg">주요 혜택</div>
           <div className="flex flex-col space-y-2">
             {benefits.map((benefit, index) => (
               <div key={index} className="p-[18px] flex items-center bg-[#F8F8F8] border border-[#F4F4F4] rounded-[13px]" onClick={() => setIsAnnualFeeDetailOpen(true)}>
@@ -119,12 +119,17 @@ export default function CardDetail() {
             ))}
           </div>
         </div>
+        <div className="font-semibold text-lg px-[18px] pb-1 pt-7">이용 안내</div>
         <div className="py-5 px-[18px] flex items-center justify-between border-b border-[#F4F4F4] cursor-pointer">
-          <div className="font-medium">부가 서비스 변경 안내</div>
+          <div className="font-medium leading-6">유의사항</div>
+          <img src={chevronRightBlackIcon} width="24" height="24" alt="이동하기" className="rotate-90" />
+        </div>
+        <div className="py-5 px-[18px] flex items-center justify-between border-b border-[#F4F4F4] cursor-pointer">
+          <div className="font-medium leading-6">부가 서비스 변경 안내</div>
           <img src={chevronRightBlackIcon} width="24" height="24" alt="이동하기" className="rotate-90" />
         </div>
         <div className={`py-5 px-[18px] flex items-center justify-between border-b border-[#F4F4F4] cursor-pointer ${isLateInterestExpanded ? "bg-[#F8F8F8]" : ""}`} onClick={() => setIsLateInterestExpanded(!isLateInterestExpanded)}>
-          <div className="font-medium">연체 이자 안내</div>
+          <div className="font-medium leading-6">연체 이자 안내</div>
           <img src={chevronRightBlackIcon} width="24" height="24" alt="이동하기" className={isLateInterestExpanded ? "rotate-270" : "rotate-90"} />
         </div>
         {isLateInterestExpanded && (
@@ -183,14 +188,14 @@ export default function CardDetail() {
         <Sheet.Container className="max-h-[294px]">
           <Sheet.Header>
             <div className="flex justify-between items-center pl-[25px] pr-[18px] pt-[23px] pb-[22px]">
-              <h2 className="text-lg font-semibold">연회비</h2>
+              <h2 className="text-lg font-semibold">주요 혜택</h2>
               <button onClick={() => setIsAnnualFeeDetailOpen(false)} className="text-[#999] text-2xl font-light">
                 <img src={closeRoundIcon} width="24" height="24" alt="닫기" />
               </button>
             </div>
           </Sheet.Header>
           <Sheet.Content>
-            <div className="pl-[19px] pr-[22px] mb-[25px]">
+            <div className="pl-[25px] pr-[22px] mb-[25px]">
               <div className="font-medium mb-2.5">공과금</div>
               <ul className="list-disc font-medium text-[#6D727A] text-sm leading-[22px] pl-[18px]">
                 <li>전기요금 / 도시가스 요금 / SKT, LG U+, KT 통신요금 할인 인터넷 / 집전화/이동통신/결합상품 포함</li>
@@ -199,7 +204,7 @@ export default function CardDetail() {
               </ul>
             </div>
             <div className="px-[18px]">
-              <Button>카드 신청하기</Button>
+              <Button className="leading-5">카드 신청하기</Button>
             </div>
           </Sheet.Content>
         </Sheet.Container>

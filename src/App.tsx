@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "react-modal-sheet";
+import { useNavigate } from "react-router";
 import CardRegistration from "@/components/pages/CardRegistration";
 import Notifications from "@/components/pages/Notifications";
 import './App.css'
@@ -190,7 +191,7 @@ interface SheetRef {
 }
 
 export default function Home() {
-  const [isLoggedIn, _] = useState<boolean>(false)
+  const [isLoggedIn, _] = useState<boolean>(true)
   const [selectedBenefit, setselectedBenefit] = useState<string>('place')
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoginSheetOpen, setIsLoginSheetOpen] = useState<boolean>(false)
@@ -208,6 +209,7 @@ export default function Home() {
   const [isCompanyListExpanded, setIsCompanyListExpanded] = useState<boolean>(false)
   const ref = useRef<SheetRef>(null);
   const snapTo = (i: number): void => ref.current?.snapTo(i);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsOpen(true)
@@ -325,7 +327,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center space-x-1.5">
                           {cardTypes.map((type) => (
-                            <div key={type} className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full">{type}</div>
+                            <div key={type} className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full leading-5">{type}</div>
                           ))}
                         </div>
                       </div>
@@ -347,7 +349,7 @@ export default function Home() {
                                     <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
                                     <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
                                   </div>
-                                  <div className="text-base font-semibold">{card.spot}</div>
+                                  <div className="text-base font-semibold mb-[3px]">{card.spot}</div>
                                   <div className="text-[13px] text-[#6D727A]">{card.description}</div>
                                 </div>
                               </div>
@@ -764,7 +766,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center space-x-1.5">
                       {cardTypes.map((type) => (
-                        <div key={type} className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full">{type}</div>
+                        <div key={type} className="bg-[#F7F8F8] px-3.5 py-2.5 h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full leading-5">{type}</div>
                       ))}
                     </div>
                   </div>
@@ -781,7 +783,11 @@ export default function Home() {
                             <div>
                               <div className="flex items-center space-x-0.5">
                                 <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
-                                <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
+                                <img src={chevronRightIcon} width="20" height="20" alt="이동하기" onClick={(e) => {
+                                  e.stopPropagation()
+                                  e.preventDefault()
+                                  navigate('/card-detail')
+                                }} />
                               </div>
                               <div className="text-base font-semibold">{card.spot}</div>
                               <div className="text-[13px] text-[#6D727A]">{card.description}</div>

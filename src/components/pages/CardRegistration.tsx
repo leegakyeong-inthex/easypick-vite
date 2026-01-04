@@ -428,11 +428,11 @@ export default function CardRegistration({ setIsVisible }: CardRegistrationProps
               <div className="text-sm text-[#6D727A] mb-6">카드 정보를 남겨주시면 빠르게 추가해드릴게요.</div>
               <div className="relative w-full">
                 <Label htmlFor="company" className="font-semibold text-sm text-[#686B70] absolute left-[18px] top-3.5">카드사</Label>
-                <Input id="company" value={company} onChange={handleCompanyChange} className="bg-[#F3F3F3] mb-[13px] text-right" placeholder="카드사" />
+                <Input id="company" value={company} onChange={handleCompanyChange} className="bg-[#F3F3F3] mb-[13px] text-right focus-visible:outline-none focus-visible:ring-0" placeholder="카드사" />
               </div>
               <div className="relative w-full">
                 <Label htmlFor="cardName" className="font-semibold text-sm text-[#686B70] absolute left-[18px] top-3.5">카드 이름</Label>
-                <Input id="cardName" value={cardName} onChange={handleCardNameChange} className="bg-[#F3F3F3] mb-[25px] text-right" placeholder="카드 이름" />
+                <Input id="cardName" value={cardName} onChange={handleCardNameChange} className="bg-[#F3F3F3] mb-[25px] text-right focus-visible:outline-none focus-visible:ring-0" placeholder="카드 이름" />
               </div>
               <Button className={`w-full ${isInputsComplete ? 'bg-[#0068FF]' : 'bg-[#C3C3C3]'}`}>요청하기</Button>
             </div>

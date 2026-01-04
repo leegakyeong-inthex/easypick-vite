@@ -212,7 +212,7 @@ export default function Search() {
         ref={ref}
         isOpen={isSheetOpen}
         onClose={() => setIsSheetOpen(false)}
-        snapPoints={[0, 150, 400, 1]}
+        snapPoints={[0, 165, 516, 1]}
         initialSnap={2}
         className="bottomSheet"
         disableDismiss
@@ -221,15 +221,22 @@ export default function Search() {
         <Sheet.Container
           style={{
             zIndex: 1000,
-            boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
-            borderRadius: '18px 18px 0px 0px'
+            boxShadow: currentSnapPoint === 3 ? '' : '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
+            borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px'
           }}
           className="max-h-[750px]"
         >
-          <Sheet.Header />
+          {/* <Sheet.Header /> */}
+          {currentSnapPoint === 3 ? (
+            <Sheet.Header>
+              <div className="h-5"></div>
+            </Sheet.Header>
+          ) : (
+            <Sheet.Header />
+          )}
           <Sheet.Content>
             <div className="absolute top-0 bg-white w-full">
-              {isDetailedResult && !isExpanded ? (
+              {isDetailedResult ? (
                 // Detailed view for single result
                 <div className="pb-8">
                   {currentResults.map((result) => (
@@ -285,53 +292,6 @@ export default function Search() {
                           <img key={photo+i} src={photo} width="149" height="100" alt="" />
                         ))}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                // Expanded view showing all details
-                <div className="pb-8">
-                  {currentResults.map((result) => (
-                    <div key={result.id}>
-                      <div className="px-[18px] leading-none mb-4 pt-4">
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="text-xl font-semibold">{result.name}</div>
-                          <div className="rounded-full bg-[#EEEEEE] p-1.5">
-                            <img src={bookmarkIcon} width="20" height="20" alt="" />
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
-                          <div>{result.category}</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div>{result.distance}</div>
-                        </div>
-                        {/* <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
-                        <div className="flex items-center space-x-1.5 text-sm font-medium">
-                          <div>영업중</div>
-                          <img src={grayDotIcon} width="3" height="3" alt="" />
-                          <div className="text-[#6D727A]">00:00 - 24:00</div>
-                        </div> */}
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {spotCards.map((card) => (
-                          <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
-                            <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
-                            <div className="ml-3.5 font-medium">
-                              <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
-                              <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
-                              <div className="text-[15px] font-semibold">{card.benefit}</div>
-                            </div>
-                            <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
-                        {photos.map((photo, i) => (
-                          <img key={photo+i} src={photo} width="149" height="100" alt="" />
-                        ))}
-                      </div>
 
                       <div className="mb-4">
                         <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
@@ -357,6 +317,78 @@ export default function Search() {
                           </div>
                         )}
                       </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                // Expanded view showing all details
+                <div className="pb-8 divide-y divide-[#F4F4F4]">
+                  {currentResults.map((result) => (
+                    <div key={result.id} className="py-2">
+                      <div className="px-[18px] leading-none mb-4 pt-4">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="text-xl font-semibold">{result.name}</div>
+                          <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                            <img src={bookmarkIcon} width="20" height="20" alt="" />
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
+                          <div>{result.category}</div>
+                          <img src={grayDotIcon} width="3" height="3" alt="" />
+                          <div>{result.distance}</div>
+                        </div>
+                        <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
+                        <div className="flex items-center space-x-1.5 text-sm font-medium">
+                          <div>영업중</div>
+                          <img src={grayDotIcon} width="3" height="3" alt="" />
+                          <div className="text-[#6D727A]">00:00 - 24:00</div>
+                        </div>
+                      </div>
+
+                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                        {spotCards.map((card) => (
+                          <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                            <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
+                            <div className="ml-3.5 font-medium">
+                              <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
+                              <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
+                              <div className="text-[15px] font-semibold">{card.benefit}</div>
+                            </div>
+                            <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
+                        {photos.map((photo, i) => (
+                          <img key={photo+i} src={photo} width="149" height="100" alt="" />
+                        ))}
+                      </div>
+
+                      {/* <div className="mb-4">
+                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                          <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
+                          <div className="text-sm font-semibold ">영업중</div>
+                          <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
+                          <div className="text-sm text-[#6D727A]">24:00 까지</div>
+                        </div>
+                        <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                          <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
+                          <div className="text-sm">{result.address}</div>
+                        </div>
+                        {result.phone && (
+                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                            <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
+                            <div className="text-sm font-medium">{result.phone}</div>
+                          </div>
+                        )}
+                        {result.website && (
+                          <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
+                            <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
+                            <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
+                          </div>
+                        )}
+                      </div> */}
                     </div>
                   ))}
                 </div>

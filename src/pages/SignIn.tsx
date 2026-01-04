@@ -445,7 +445,7 @@ export default function SignIn() {
                     <p className="font-medium text-sm text-[#6D727A] leading-none mb-10">새로운 비밀번호로 로그인 후 서비스를 이용해주세요.</p>
                   </div>
                   <Button
-                    className="w-[153px] px-10 py-4 rounded-[10px] font-medium"
+                    className="w-[153px] px-10 py-4 rounded-[10px] font-medium leading-[19px]"
                     onClick={handleCloseFindPassword}
                   >
                     로그인 하기
