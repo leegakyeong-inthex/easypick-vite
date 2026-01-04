@@ -7,6 +7,7 @@ import arrowLeft from '@/assets/images/icons/arrow-left.png'
 import x from '@/assets/images/icons/x.png'
 import card2 from '@/assets/images/card-2.png'
 import card3 from '@/assets/images/card-3.png'
+import SheetHeader from "@/components/SheetHeader";
 
 const initialCards = [
   {
@@ -421,7 +422,7 @@ export default function CardRegistration({ setIsVisible }: CardRegistrationProps
         initialSnap={1}
       >
         <Sheet.Container>
-          <Sheet.Header />
+          <SheetHeader />
           <Sheet.Content>
             <div className="px-[18px] pb-6">
               <div className="font-bold text-lg mb-1.5">카드 추가 요청</div>
@@ -449,7 +450,7 @@ export default function CardRegistration({ setIsVisible }: CardRegistrationProps
         initialSnap={1}
       >
         <Sheet.Container>
-          <Sheet.Header />
+          <SheetHeader />
           <Sheet.Content>
             <div className="flex flex-col items-center mt-1.5 px-[18px]">
               {currentRegistrationCard && (

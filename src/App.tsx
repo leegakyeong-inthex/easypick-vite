@@ -4,6 +4,7 @@ import { Sheet } from "react-modal-sheet";
 import { useNavigate } from "react-router";
 import CardRegistration from "@/components/pages/CardRegistration";
 import Notifications from "@/components/pages/Notifications";
+import SheetHeader from "@/components/SheetHeader";
 import './App.css'
 
 // Icon imports
@@ -288,7 +289,7 @@ export default function Home() {
           }}
           className="max-h-[681px]"
         >
-          <Sheet.Header />
+          <SheetHeader />
           <Sheet.Content>
             {selectedBenefit === 'place' ? (
               <>
@@ -729,7 +730,7 @@ export default function Home() {
           initialSnap={1}
         >
           <Sheet.Container>
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               <div>
                 <div className="px-5 font-semibold text-lg leading-[25px] mb-8">로그인하고 내 소비패턴에 맞는<br />카드 혜택과 이벤트를 확인해보세요.</div>
@@ -756,7 +757,7 @@ export default function Home() {
           initialSnap={1}
         >
           <Sheet.Container className="max-h-[531px]">
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               {!selectedKeywordSpot ? (
                 <div className="mb-20 overflow-x-hidden overflow-y-scroll">
@@ -872,7 +873,7 @@ export default function Home() {
           initialSnap={1}
         >
           <Sheet.Container>
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               {!selectedBenefitSpot ? (
                 <div className="mb-20 overflow-x-hidden overflow-y-scroll">
@@ -1027,7 +1028,7 @@ export default function Home() {
           initialSnap={1}
         >
           <Sheet.Container>
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               <div className="mb-20 overflow-x-hidden overflow-y-scroll">
                 <div className="px-5 flex items-center justify-between mb-8">

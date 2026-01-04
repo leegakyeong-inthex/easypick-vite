@@ -23,6 +23,7 @@ import scheduleIcon from '@/assets/images/icons/schedule.png';
 import locationOnIcon from '@/assets/images/icons/location_on.png';
 import callGrayIcon from '@/assets/images/icons/call_gray.png';
 import languageIcon from '@/assets/images/icons/language.png';
+import SheetHeader from "@/components/SheetHeader";
 
 const spotCards = [
   {
@@ -226,13 +227,12 @@ export default function Search() {
           }}
           className="max-h-[750px]"
         >
-          {/* <Sheet.Header /> */}
           {currentSnapPoint === 3 ? (
             <Sheet.Header>
               <div className="h-5"></div>
             </Sheet.Header>
           ) : (
-            <Sheet.Header />
+            <SheetHeader />
           )}
           <Sheet.Content>
             <div className="absolute top-0 bg-white w-full">

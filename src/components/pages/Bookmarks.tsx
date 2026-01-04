@@ -20,6 +20,7 @@ import binIcon from '@/assets/images/icons/bin.png'
 import closeRoundIcon from '@/assets/images/icons/close_round.png'
 import checkDarkIcon from '@/assets/images/icons/check_dark.png'
 import checkDarkCheckedIcon from '@/assets/images/icons/check_dark-checked.png'
+import SheetHeader from "@/components/SheetHeader";
 
 const bookmarks = [
   {
@@ -144,7 +145,7 @@ export default function Bookmarks() {
         ))}
         <Sheet isOpen={isSortSheetOpen} onClose={() => setIsSortSheetOpen(false)}>
           <Sheet.Container className="max-h-[135px]">
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               <div className="px-[25px] pb-[13px]">
                 <div className="text-base font-medium py-3.5 flex items-center justify-between">
@@ -167,7 +168,7 @@ export default function Bookmarks() {
           }}
           >
           <Sheet.Container className="max-h-[241px]">
-            <Sheet.Header />
+            <SheetHeader />
             <Sheet.Content>
               {isEditVisible ? (
                 <div className="px-[18px] flex flex-col h-full">
@@ -311,7 +312,7 @@ export default function Bookmarks() {
             )
             : !isBookmarkMemoVisible ? (
               <Sheet.Container className="max-h-[369px]">
-                <Sheet.Header />
+                <SheetHeader />
                 <Sheet.Content>
                   <div className="border-b border-[#F4F4F4] flex items-center pb-[18px] px-[18px] mb-3">
                     <img src={photo2} width="46" height="46" alt="장소 썸네일" className="mr-3.5 object-cover" />
@@ -352,7 +353,7 @@ export default function Bookmarks() {
             )
             : (
               <Sheet.Container className="max-h-[241px]">
-                <Sheet.Header />
+                <SheetHeader />
                 <Sheet.Content>
                   <div className="px-[18px] flex flex-col h-full">
                     <div className="w-full flex items-center mb-[17px]">
