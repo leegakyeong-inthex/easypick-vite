@@ -50,12 +50,12 @@ export default function NavigationBar() {
 
   return (
     <div className="fixed z-2 bottom-0 w-full h-20 pt-2.5 px-[25px] bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
-      <div className="flex items-center space-x-[30px]">
+      <div className="flex items-center">
         {tabs.map((tab) => (
           <Link
             key={tab.title}
             to={tab.href}
-            className="w-[41px] h-[41px] flex flex-col items-center space-y-0.5"
+            className="flex-1 w-[41px] h-[41px] flex flex-col items-center space-y-0.5"
             onClick={() => setSelectedTab(tab.title)}
           >
             <img src={tab.iconUrl} width="24" height="24" alt={tab.title} />
