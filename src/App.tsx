@@ -271,7 +271,7 @@ export default function Home() {
         ref={ref}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        snapPoints={[0, 494, 0.75, 1]}
+        snapPoints={[0, 494, 0.8, 1]} // max-h의 80%인 듯
         // detent="content"
         initialSnap={2}
         className="bottomSheet"
@@ -283,13 +283,13 @@ export default function Home() {
             boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
             borderRadius: '18px 18px 0px 0px'
           }}
-          className="max-h-[681px]"
+          className="max-h-[75%]"
         >
           <SheetHeader />
           <Sheet.Content>
             {selectedBenefit === 'place' ? (
               <>
-                <div className="mb-20 overflow-x-hidden overflow-y-scroll">
+                {/* <div className="mb-20 overflow-x-hidden overflow-y-scroll">
                   <div className="font-semibold text-lg tracking-[-2%] mb-4 pl-5">장소 맞춤 카드찾기</div>
                   <div className="flex items-center space-x-4 overflow-x-scroll mb-5 pl-5">
                     {places.map((place) => (
@@ -398,9 +398,9 @@ export default function Home() {
                   </div>
                   <div className="flex justify-center items-center rounded-[20px] mx-5 h-[81px] bg-[#F3F3F3] text-[#5A5B64] text-[15px] leading-[-1%]">광고 영역입니다.</div>
                   <img src={eventBannerImg} width="375" height="300" alt="이벤트 배너" className="w-full" />
-                </div>
+                </div> */}
 
-                {selectedSpot && (
+                {selectedSpot ? (
                   <div className="absolute top-0 bg-white w-full">
                     <div className="px-[18px] flex items-center justify-between mb-4">
                       <img
@@ -460,6 +460,117 @@ export default function Home() {
                         <img key={photo+i} src={photo} width="149" height="100" alt="" />
                       ))}
                     </div>
+                  </div>
+                ) : (
+                  <div className="mb-20 overflow-x-hidden overflow-y-scroll">
+                    <div className="font-semibold text-lg tracking-[-2%] mb-4 pl-5">장소 맞춤 카드찾기</div>
+                    <div className="flex items-center space-x-4 overflow-x-scroll mb-5 pl-5">
+                      {places.map((place) => (
+                        <div
+                          key={place.name}
+                          className="flex flex-col items-center shrink-0"
+                          onClick={() => {
+                            if (!isLoggedIn) {
+                              setIsLoginSheetOpen(!isLoginSheetOpen)
+                            }
+
+                            if (selectedPlace && selectedPlace === place.name) {
+                              setSelectedPlace('')
+                              snapTo(2)
+                            } else {
+                              setSelectedPlace(place.name)
+                              snapTo(3)
+                            }
+                          }}
+                        >
+                          <img src={place.iconUrl} width="52" height="52" alt={place.name} className="block mb-[5px]" />
+                          <div className="font-medium text-sm">{place.name}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <hr className="border-t border-[#F4F4F4] mb-5" />
+                    {isLoggedIn && places.find((p) => p.name === selectedPlace) && (
+                      <div>
+                        <div className="flex items-center space-x-3 mb-1 px-5">
+                          <div className="bg-[#F7F8F8] p-[9px] h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full">
+                            <img src={tuneIcon} width="20" height="20" alt="필터" />
+                          </div>
+                          <div className="flex items-center space-x-1.5">
+                            {cardTypes.map((type) => (
+                              <div key={type} className={`py-2.5 h-10 text-[15px] shrink-0 rounded-full leading-5 ${type === '적립형' ? 'bg-[#0B0D0F] text-white pl-2 pr-3.5' : 'bg-[#F7F8F8] text-[#5A5B64] px-3.5'}`}>
+                                {type === '적립형' && <img src={checkSmallIcon} width="20" height="20" alt="체크 아이콘" className="mr-1 inline-block" />}
+                                {type}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="divide-y divide-solid divide-[#F4F4F4]">
+                          {cards.map((card) => (
+                            <div
+                              key={card.spot}
+                              className="py-4 px-5"
+                              onClick={() => {
+                                setSelectedSpot(card.spot)
+                                snapTo(2)
+                              }}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center">
+                                  <img src={card.image} width="49" height="78" alt={card.name} className="mr-5" />
+                                  <div>
+                                    <div className="flex items-center space-x-0.5" onClick={(e) => {
+                                        e.stopPropagation()
+                                        e.preventDefault()
+                                        navigate('/card-detail')
+                                      }}
+                                    >
+                                      <div className="font-medium text-[#6D727A] text-[13px]">{card.name}</div>
+                                      <img src={chevronRightIcon} width="20" height="20" alt="이동하기" />
+                                    </div>
+                                    <div className="text-base font-semibold mb-[3px]">{card.spot}</div>
+                                    <div className="text-[13px] text-[#6D727A]">{card.description}</div>
+                                  </div>
+                                </div>
+                                <div className="bg-[#CCE1FF] px-[7px] py-[5px] text-[#0068FF] text-[11px] font-semibold rounded-[20px]">MY</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="px-[18px] mb-8">
+                          <Button className="h-[42px] flex items-center justify-center bg-[#F0F2F4] font-medium text-[#5A5B64] text-sm">
+                            <div className="-mr-2">더보기</div>
+                            <img src={chevronRightIcon} width="20" height="20" alt="더보기" className="rotate-90" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                    {!isLoggedIn && (
+                      <div className="flex items-center justify-between px-5 pt-2 pb-7 mb-4 border-b border-[#F4F4F4]">
+                        <div className="font-semibold text-lg leading-[25px]">카드 등록하고<br />슬기로운 소비생활 시작하기</div>
+                        <div
+                          className="bg-[#E3EEFF] rounded-full leading-[18px] px-3 py-[9px] font-semibold text-[15px] text-[#0D58BB] h-9"
+                          onClick={() => {
+                            setIsCardRegistrationVisible(true)
+                          }}
+                        >카드 등록하기</div>
+                      </div>
+                    )}
+                    <div className="font-semibold text-lg tracking-[-2%] mb-4 pl-5">추천 장소 키워드</div>
+                    <div className="flex items-center space-x-1.5 overflow-x-scroll pl-5 mb-4">
+                      {keywords.map((keyword) => (
+                        <div
+                          key={keyword}
+                          className="bg-[#F7F8F8] px-3.5 py-[11px] h-10 text-[15px] text-[#5A5B64] shrink-0 rounded-full leading-[18px]"
+                          onClick={() => {
+                            setSelectedKeyword(keyword)
+                            setIsKeywordSheetOpen(true)
+                            setIsOpen(false)
+                          }}
+                        >{keyword}</div>
+                      ))}
+                    </div>
+                    <div className="flex justify-center items-center rounded-[20px] mx-5 h-[81px] bg-[#F3F3F3] text-[#5A5B64] text-[15px] leading-[-1%]">광고 영역입니다.</div>
+                    <img src={eventBannerImg} width="375" height="300" alt="이벤트 배너" className="w-full" />
                   </div>
                 )}
               </>
