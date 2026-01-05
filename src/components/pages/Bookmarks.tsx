@@ -21,6 +21,7 @@ import closeRoundIcon from '@/assets/images/icons/close_round.png'
 import checkDarkIcon from '@/assets/images/icons/check_dark.png'
 import checkDarkCheckedIcon from '@/assets/images/icons/check_dark-checked.png'
 import SheetHeader from "@/components/SheetHeader";
+import { AnimatePresence, motion } from "framer-motion";
 
 const bookmarks = [
   {
@@ -228,18 +229,37 @@ export default function Bookmarks() {
           </Sheet.Container>
           <Sheet.Backdrop onClick={() => setIsGroupEditSheetOpen(false)} />
         </Sheet>
-        {isRemoveDialogOpen && (
-          <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg py-5 px-[25px] w-[310px]">
-              <div className="text-lg font-semibold text-[#1C1C1C] mb-[7px]">영화 그룹을 삭제할까요?</div>
-              <div className="text-[#6D727A] font-medium text-[13px] mb-[27px]">그룹 내 장소도 함께 삭제됩니다.</div>
-              <div className="flex space-x-2.5 w-full">
-                <Button variant="secondary" onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">취소</Button>
-                <Button onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">삭제</Button>
+        <AnimatePresence>
+          {isRemoveDialogOpen && (
+            <motion.div
+              className="fixed inset-0 bg-black/20 z-50 flex items-center justify-center"
+              key="notifications"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.3, ease: [0.42, 0, 1, 1] }
+              }}
+              exit={{
+                opacity: 0,
+                y: -10,
+                transition: { duration: 0.3, ease: [0, 0, 0.58, 1] }
+              }}
+              // transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <div className="flex items-center justify-center">
+                <div className="bg-white rounded-lg py-5 px-[25px] w-[310px]">
+                  <div className="text-lg font-semibold text-[#1C1C1C] mb-[7px]">영화 그룹을 삭제할까요?</div>
+                  <div className="text-[#6D727A] font-medium text-[13px] mb-[27px]">그룹 내 장소도 함께 삭제됩니다.</div>
+                  <div className="flex space-x-2.5 w-full">
+                    <Button variant="secondary" onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">취소</Button>
+                    <Button onClick={() => setIsRemoveDialogOpen(false)} className="flex-1 leading-5">삭제</Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {isBookmarkDetailVisible && (

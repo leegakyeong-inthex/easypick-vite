@@ -277,6 +277,11 @@ export default function Home() {
         initialSnap={2}
         className="bottomSheet"
         disableDismiss
+        // springConfig={{
+        //   stiffness: 380,
+        //   damping: 40,
+        //   mass: 0.8,
+        // }}
       >
         <Sheet.Container
           style={{
@@ -284,7 +289,7 @@ export default function Home() {
             boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
             borderRadius: '18px 18px 0px 0px'
           }}
-          className="max-h-[75%]"
+          className="max-h-[80%]"
         >
           <SheetHeader />
           <Sheet.Content>
@@ -1198,7 +1203,7 @@ export default function Home() {
           exit={{
             opacity: 0,
             y: -10,
-            transition: { duration: 0.2, ease: [0.42, 0, 1, 1] }
+            transition: { duration: 0.3, ease: [0.42, 0, 1, 1] }
           }}
           // transition={{ duration: 0.25, ease: "easeOut" }}
         >

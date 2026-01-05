@@ -49,8 +49,8 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <div className="fixed z-2 bottom-0 w-full h-20 pt-2.5 px-[25px] bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
-      <div className="flex items-center">
+    <div className="fixed z-2 bottom-0 w-full h-20 bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+      <div className="mt-2.5 flex items-center justify-evenly">
         {tabs.map((tab) => (
           <Link
             key={tab.title}

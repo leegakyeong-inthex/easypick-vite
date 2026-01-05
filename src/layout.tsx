@@ -25,7 +25,7 @@ export default function Layout() {
         exit={{
           opacity: 0,
           y: -10,
-          transition: { duration: 0.2, ease: [0.42, 0, 1, 1] }
+          transition: { duration: 0.3, ease: [0.42, 0, 1, 1] }
         }}
         // transition={{ duration: 0.25, ease: "easeOut" }}
       >
