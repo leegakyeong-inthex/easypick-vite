@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "react-modal-sheet";
 import { useNavigate } from "react-router";
+import { AnimatePresence, motion } from "framer-motion";
 import CardRegistration from "@/components/pages/CardRegistration";
 import Notifications from "@/components/pages/Notifications";
 import SheetHeader from "@/components/SheetHeader";
@@ -219,7 +220,7 @@ export default function Home() {
   }, [])
 
   return (
-    <>
+    <AnimatePresence mode="wait">
       <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />
 
       <div className="absolute top-0 w-full h-[60px] rounded-b-2xl flex justify-center bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
@@ -1184,7 +1185,26 @@ export default function Home() {
         </Sheet>
       )}
 
-      {isNotificationsVisible && <Notifications setIsVisible={setIsNotificationsVisible} />}
-    </>
+      {isNotificationsVisible && (
+        <motion.div
+          className="absolute inset-0 bg-white z-20"
+          key="notifications"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.3, ease: [0, 0, 0.58, 1] }
+          }}
+          exit={{
+            opacity: 0,
+            y: -10,
+            transition: { duration: 0.2, ease: [0.42, 0, 1, 1] }
+          }}
+          // transition={{ duration: 0.25, ease: "easeOut" }}
+        >
+        <Notifications setIsVisible={setIsNotificationsVisible} />
+      </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

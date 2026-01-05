@@ -15,6 +15,7 @@ export default function Layout() {
       {!hideNav && <NavigationBar />}
 
       <motion.div
+        key={location.pathname}
         initial={{ opacity: 0, y: 10 }}
         animate={{
           opacity: 1,
