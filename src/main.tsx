@@ -1,21 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router'
-import SignIn from '@/pages/SignIn.tsx'
-import SignUp from '@/pages/SignUp.tsx'
-import MyCards from '@/pages/MyCards.tsx'
-import Search from '@/pages/Search.tsx'
-import Recommendation from '@/pages/Recommendation.tsx'
-import CardDetail from '@/pages/CardDetail.tsx'
-import More from '@/pages/More.tsx'
-import './index.css'
-import App from './App.tsx'
-import Layout from './layout.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
+import { AnimatePresence } from "framer-motion";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
+import Layout from "./layout";
+import App from "./App";
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
+import MyCards from "@/pages/MyCards";
+import Search from "@/pages/Search";
+import Recommendation from "@/pages/Recommendation";
+import CardDetail from "@/pages/CardDetail";
+import More from "@/pages/More";
+
+import './index.css'
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
         <Route element={<Layout />}>
           <Route path="/" element={<App />} />
           <Route path="/sign-in" element={<SignIn />} />
@@ -27,6 +32,14 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/more" element={<More />} />
         </Route>
       </Routes>
+    </AnimatePresence>
+  );
+}
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <AnimatedRoutes />
     </BrowserRouter>
-  </StrictMode>,
-)
+  </StrictMode>
+);
