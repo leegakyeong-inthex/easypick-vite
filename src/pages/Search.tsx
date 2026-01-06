@@ -120,28 +120,54 @@ export default function Search() {
 
   return (
     <>
-      {isSheetOpen && <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />}
+      {isSheetOpen && currentSnapPoint !== 3 && <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />}
       <div className="flex flex-col min-h-full bg-white">
-        <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50 bg-white" style={{ boxShadow: isSheetOpen ? '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' : 'none' }}>
-          <div className="flex items-center justify-center mr-2.5 min-w-6">
+        {(currentSnapPoint === 3 && isDetailedResult) ? (
+          <div className="bg-white w-full px-[18px] flex items-center justify-between h-[60px] z-50">
             <img
               src={arrowLeftIcon}
               width="24"
               height="24"
               alt="뒤로가기"
               onClick={() => {
-                navigate(-1);
+                setIsSheetOpen(false)
+                setCurrentSnapPoint(0)
               }}
             />
+            <div className="flex items-center space-x-[7px]">
+              <div className="rounded-full bg-[#EEEEEE] p-1.5" onClick={() => setIsDirectionSheetOpen(true)}>
+                <img src={directionsIcon} width="20" height="20" alt="" />
+              </div>
+              <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                <img src={callIcon} width="20" height="20" alt="" />
+              </div>
+              <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                <img src={bookmarkIcon} width="20" height="20" alt="" />
+              </div>
+            </div>
           </div>
-          <Input
-            placeholder="검색어를 입력하세요"
-            className="w-full h-10"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
+        ) : (
+          <div className="w-full h-[60px] flex justify-between items-center px-[18px] z-50 bg-white" style={{ boxShadow: (isSheetOpen && currentSnapPoint !== 3) ? '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' : 'none' }}>
+            <div className="flex items-center justify-center mr-2.5 min-w-6">
+              <img
+                src={arrowLeftIcon}
+                width="24"
+                height="24"
+                alt="뒤로가기"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              />
+            </div>
+            <Input
+              placeholder="검색어를 입력하세요"
+              className="w-full h-10"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+        )}
 
         {/* Recent Searches or Search Results Overlay */}
         {!isSheetOpen && (
@@ -231,7 +257,7 @@ export default function Search() {
               boxShadow: currentSnapPoint === 3 ? '' : '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
               borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px'
             }}
-            className="max-h-[750px]"
+            className="max-h-[calc(100vh-26px)]"
           >
             {currentSnapPoint === 3 ? (
               <Sheet.Header>
@@ -247,7 +273,7 @@ export default function Search() {
                   <div className="pb-8">
                     {currentResults.map((result) => (
                       <div key={result.id}>
-                        <div className="px-[18px] leading-none mb-3.5 pt-4">
+                        <div className={`px-[18px] leading-none pt-4 ${currentSnapPoint === 3 ? 'mb-5' : 'mb-3.5'}`}>
                           <div className="flex items-center justify-between mb-1">
                             <div className="text-xl font-semibold">{result.name}</div>
                             {/* <div className="rounded-full bg-[#EEEEEE] p-1.5">
@@ -259,25 +285,31 @@ export default function Search() {
                             <img src={grayDotIcon} width="3" height="3" alt="" />
                             <div>{result.distance}</div>
                           </div>
-                          <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
-                          <div className="flex items-center space-x-1.5 text-sm font-medium">
-                            <div>영업중</div>
-                            <img src={grayDotIcon} width="3" height="3" alt="" />
-                            <div className="text-[#6D727A]">00:00 - 24:00</div>
-                          </div>
+                          {currentSnapPoint !== 3 && (
+                            <>
+                              <div className="text-sm text-[#6D727A] mb-px">{result.address}</div>
+                              <div className="flex items-center space-x-1.5 text-sm font-medium">
+                                <div>영업중</div>
+                                <img src={grayDotIcon} width="3" height="3" alt="" />
+                                <div className="text-[#6D727A]">00:00 - 24:00</div>
+                              </div>
+                            </>
+                          )}
                         </div>
 
-                        <div className="px-[18px] flex items-center space-x-2.5 mb-4">
-                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full" onClick={() => setIsDirectionSheetOpen(true)}>
-                            <img src={directionsIcon} width="20" height="20" alt="방향" />
-                          </button>
-                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                            <img src={callIcon} width="20" height="20" alt="전화" />
-                          </button>
-                          <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                            <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
-                          </button>
-                        </div>
+                        {currentSnapPoint !== 3 && (
+                          <div className="px-[18px] flex items-center space-x-2.5 mb-4">
+                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full" onClick={() => setIsDirectionSheetOpen(true)}>
+                              <img src={directionsIcon} width="20" height="20" alt="방향" />
+                            </button>
+                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                              <img src={callIcon} width="20" height="20" alt="전화" />
+                            </button>
+                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
+                              <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
+                            </button>
+                          </div>
+                        )}
 
                         <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
                           {spotCards.map((card) => (
@@ -299,30 +331,32 @@ export default function Search() {
                           ))}
                         </div>
 
-                        <div className="mb-4">
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
-                            <div className="text-sm font-semibold ">영업중</div>
-                            <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
-                            <div className="text-sm text-[#6D727A]">24:00 까지</div>
-                          </div>
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
-                            <div className="text-sm">{result.address}</div>
-                          </div>
-                          {result.phone && (
+                        {currentSnapPoint === 3 && (
+                          <div className="mb-4">
                             <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                              <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
-                              <div className="text-sm font-medium">{result.phone}</div>
+                              <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
+                              <div className="text-sm font-semibold ">영업중</div>
+                              <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
+                              <div className="text-sm text-[#6D727A]">24:00 까지</div>
                             </div>
-                          )}
-                          {result.website && (
-                            <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
-                              <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
-                              <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
+                            <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                              <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
+                              <div className="text-sm">{result.address}</div>
                             </div>
-                          )}
-                        </div>
+                            {result.phone && (
+                              <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
+                                <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
+                                <div className="text-sm font-medium">{result.phone}</div>
+                              </div>
+                            )}
+                            {result.website && (
+                              <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
+                                <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
+                                <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -370,31 +404,6 @@ export default function Search() {
                             <img key={photo+i} src={photo} width="149" height="100" alt="" />
                           ))}
                         </div>
-
-                        {/* <div className="mb-4">
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={scheduleIcon} width="20" height="20" alt="운영시간" className="mr-2" />
-                            <div className="text-sm font-semibold ">영업중</div>
-                            <img src={grayDotIcon} width="3" height="3" alt="" className="mx-[7px]" />
-                            <div className="text-sm text-[#6D727A]">24:00 까지</div>
-                          </div>
-                          <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                            <img src={locationOnIcon} width="20" height="20" alt="주소" className="mr-2" />
-                            <div className="text-sm">{result.address}</div>
-                          </div>
-                          {result.phone && (
-                            <div className="px-[18px] flex items-center pb-2.5 border-b border-[#F4F4F4] mb-2.5">
-                              <img src={callGrayIcon} width="20" height="20" alt="전화번호" className="mr-2 inline-block" />
-                              <div className="text-sm font-medium">{result.phone}</div>
-                            </div>
-                          )}
-                          {result.website && (
-                            <div className="px-[18px] flex items-center pb-2.5 mb-2.5">
-                              <img src={languageIcon} width="20" height="20" alt="웹사이트" className="mr-2 inline-block" />
-                              <div className="text-sm text-[#007BFE] break-all">{result.website}</div>
-                            </div>
-                          )}
-                        </div> */}
                       </div>
                     ))}
                   </div>

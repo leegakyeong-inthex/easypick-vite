@@ -341,11 +341,11 @@ export default function Home() {
 
                     <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
                       {spotCards.map((card) => (
-                        <div key={card.company} className="w-[200px] h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
+                        <div key={card.company} className="h-[90px] bg-[#F7F8F8] flex items-center p-[7px] rounded-[10px] shrink-0">
                           <img src={card.image} width="49" height="78" alt={card.name} className="grow-0" />
-                          <div className="ml-3.5 font-medium">
-                            <div className="text-xs text-[#B2B2B2]">{card.company}</div>
-                            <div className="text-[13px] text-[#6D727A]">{card.name}</div>
+                          <div className="ml-3.5 font-medium shrink-0">
+                            <div className="text-xs text-[#B2B2B2] mb-[3px]">{card.company}</div>
+                            <div className="text-[13px] text-[#6D727A] mb-2">{card.name}</div>
                             <div className="text-[15px] font-semibold">{card.benefit}</div>
                           </div>
                           <div className="bg-[#CCE1FF] px-[7px] py-1 text-[#0068FF] text-[10px] font-semibold rounded-[20px] self-start">MY</div>

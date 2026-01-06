@@ -150,7 +150,7 @@ export default function CardDetail() {
         </div>
       </div>
       <div className="fixed bottom-0 w-full bg-white pt-2 pb-8 px-[18px]" style={{ boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.04)' }}>
-        <Button>카드 신청하기</Button>
+        <Button className="leading-5">카드 신청하기</Button>
       </div>
       <Sheet isOpen={isAnnualFeeOpen} onClose={() => setIsAnnualFeeOpen(false)}>
         <Sheet.Container className="max-h-[191px]">

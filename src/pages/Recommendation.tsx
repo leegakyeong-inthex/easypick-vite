@@ -515,9 +515,9 @@ export default function Recommendation() {
           </div>
           <div className="px-[18px] flex flex-col space-y-3">
             {recommendedCards.map((card, i) => (
-              <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px] pl-[12px]">
+              <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px]">
                 <div className="flex">
-                  <img src={card.image} width="67" height="102" alt={card.name} className="mr-4 object-contain" />
+                  <img src={card.image} width="67" height="102" alt={card.name} className="mr-4 object-contain ml-3" />
                   <div className="flex-1">
                     <div className="font-medium text-[#6D727A] text-xs mb-1.5">{card.name}</div>
                     <div className="font-semibold text-sm whitespace-pre-line mb-[11px]">{card.benefit}</div>
@@ -571,9 +571,9 @@ export default function Recommendation() {
                   </div>
                   <div className="flex flex-col space-y-3">
                     {cards.map((card: { name: string; benefit: string; estimatedBenefit: string; image: string; }) => (
-                      <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px] pl-[12px]">
+                      <div key={card.name+i} className="rounded-[10px] bg-[#F7F8F8] pt-[15px]">
                         <div className="flex">
-                          <img src={card.image} width="55" height="84" alt={card.name} className="mr-4 object-contain" />
+                          <img src={card.image} width="55" height="84" alt={card.name} className="mr-4 object-contain ml-3" />
                           <div className="flex-1 flex flex-col justify-center">
                             <div className="font-medium text-[#6D727A] text-xs mb-1.5">{card.name}</div>
                             <div className="font-semibold text-sm whitespace-pre-line mb-[11px]">{card.benefit}</div>
