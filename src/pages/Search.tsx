@@ -245,7 +245,7 @@ export default function Search() {
           ref={ref}
           isOpen={isSheetOpen}
           onClose={() => setIsSheetOpen(false)}
-          snapPoints={[0, 165, 516, 1]}
+          snapPoints={[0, 165, 448, 1]}
           initialSnap={2}
           className="bottomSheet"
           disableDismiss
