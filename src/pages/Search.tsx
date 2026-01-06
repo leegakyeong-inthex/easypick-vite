@@ -10,7 +10,6 @@ import grayDotIcon from '@/assets/images/icons/gray-dot.png';
 import photo1 from '@/assets/images/photo-1.png';
 import photo2 from '@/assets/images/photo-2.png';
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
 import martIcon from '@/assets/images/icons/mart.png';
 import cafeIcon from '@/assets/images/icons/cafe.png';
 import beautyIcon from '@/assets/images/icons/beauty.png';
@@ -103,7 +102,6 @@ export default function Search() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [currentSnapPoint, setCurrentSnapPoint] = useState(1);
   const ref = useRef<SheetRef>(null);
-  const navigate = useNavigate();
   const [isDirectionSheetOpen, setIsDirectionSheetOpen] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -123,7 +121,7 @@ export default function Search() {
       {isSheetOpen && currentSnapPoint !== 3 && <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />}
       <div className="flex flex-col min-h-full bg-white">
         {(currentSnapPoint === 3 && isDetailedResult) ? (
-          <div className="bg-white w-full px-[18px] flex items-center justify-between h-[60px] z-50">
+          <div className="bg-white w-full px-[18px] flex items-center justify-between h-[60px]">
             <img
               src={arrowLeftIcon}
               width="24"
@@ -155,7 +153,9 @@ export default function Search() {
                 height="24"
                 alt="뒤로가기"
                 onClick={() => {
-                  navigate(-1);
+                  // navigate(-1);
+                  setIsSheetOpen(false)
+                  setCurrentSnapPoint(0)
                 }}
               />
             </div>
@@ -255,14 +255,16 @@ export default function Search() {
             style={{
               zIndex: 1000,
               boxShadow: currentSnapPoint === 3 ? '' : '0px 4px 10px 0px rgba(0, 0, 0, 0.12)',
-              borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px'
+              borderRadius: currentSnapPoint === 3 ? '' : '18px 18px 0px 0px',
+              maxHeight: window.innerHeight - 60
             }}
-            className="max-h-[calc(100vh-26px)]"
+            // className="max-h-[calc(100vh-26px)] overflow-y-auto"
           >
             {currentSnapPoint === 3 ? (
-              <Sheet.Header>
-                <div className="h-5"></div>
-              </Sheet.Header>
+              // <Sheet.Header>
+              //   <div className="h-5"></div>
+              // </Sheet.Header>
+              <></>
             ) : (
               <SheetHeader />
             )}
