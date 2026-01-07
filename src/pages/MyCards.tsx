@@ -126,7 +126,7 @@ export default function MyCards() {
             <div className="font-semibold text-large text-[#B4B4B4]">{ownedCards.length}</div>
           </div>
           {selectedPlace !== '전체' && (
-            <Link to="" className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
+            <Link to={`/search?near=${selectedPlace}`} className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
               <img src={nearMeIcon} width="16" height="16" alt="주변 찾기" />
               <div className="font-semibold text-[13px] text-[#5A5B64] leading-4">주변 찾기</div>
             </Link>

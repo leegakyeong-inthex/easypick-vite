@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Sheet } from "react-modal-sheet";
 import card1 from '@/assets/images/card-1.png';
 import card2 from '@/assets/images/card-2.png';
@@ -26,7 +26,7 @@ import SheetHeader from "@/components/SheetHeader";
 import map1 from '@/assets/images/map-1.png';
 import naverMapIcon from '@/assets/images/icons/naver_map.png';
 import kakaoMapIcon from '@/assets/images/icons/kakao_map.png';
-import { useNavigate } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 
 const spotCards = [
   {
@@ -64,7 +64,17 @@ const searchResults = {
   ],
   "cgv 건대입구역": [
     { id: 1, name: "CGV 건대입구역", address: "서울 광진구 아차산로 30길 26", distance: "900m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" }
-  ]
+  ],
+  "마트": [
+    { id: 1, name: "홈플러스 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 2, name: "홈플러스 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 3, name: "홈플러스 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+  ],
+  "카페": [
+    { id: 1, name: "메가커피 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 2, name: "메가커피 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+    { id: 3, name: "메가커피 건대입구", address: "서울 광진구 아차산로30길 26", distance: "119m", category: "영화", phone: "1544-1122", website: "http://cgv.co.kr/cnm/bzpicCgv/0229001" },
+  ],
 };
 
 const places = [
@@ -105,6 +115,18 @@ export default function Search() {
   const ref = useRef<SheetRef>(null);
   const [isDirectionSheetOpen, setIsDirectionSheetOpen] = useState(false);
   const navigate = useNavigate()
+
+  const [searchParams, _] = useSearchParams();
+
+  const nearMe = searchParams.get('near');
+
+  useEffect(() => {
+    if (nearMe === '마트' || nearMe === '카페') {
+      setSearchInput(nearMe)
+      setIsSheetOpen(true);
+      setCurrentSnapPoint(1);
+    }
+  }, [nearMe])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchInput.trim()) {
