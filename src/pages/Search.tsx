@@ -26,6 +26,7 @@ import SheetHeader from "@/components/SheetHeader";
 import map1 from '@/assets/images/map-1.png';
 import naverMapIcon from '@/assets/images/icons/naver_map.png';
 import kakaoMapIcon from '@/assets/images/icons/kakao_map.png';
+import { useNavigate } from 'react-router'
 
 const spotCards = [
   {
@@ -103,6 +104,7 @@ export default function Search() {
   const [currentSnapPoint, setCurrentSnapPoint] = useState(1);
   const ref = useRef<SheetRef>(null);
   const [isDirectionSheetOpen, setIsDirectionSheetOpen] = useState(false);
+  const navigate = useNavigate()
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && searchInput.trim()) {
@@ -153,9 +155,12 @@ export default function Search() {
                 height="24"
                 alt="뒤로가기"
                 onClick={() => {
-                  // navigate(-1);
-                  setIsSheetOpen(false)
-                  setCurrentSnapPoint(0)
+                  if (isSheetOpen) {
+                    setIsSheetOpen(false)
+                    setCurrentSnapPoint(0)
+                  } else {
+                    navigate(-1);
+                  }
                 }}
               />
             </div>

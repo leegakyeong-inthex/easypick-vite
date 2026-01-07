@@ -120,7 +120,7 @@ export default function MyCards() {
             </div>
           ))}
         </div>
-        <div className="pt-[30px] px-[18px] pb-3.5 flex items-center justify-between">
+        <div className="pt-[30px] px-[18px] pb-3.5 flex items-center justify-between leading-8">
           <div className="flex items-center">
             <div className="mr-1.5 font-semibold text-lg">보유 중인 카드</div>
             <div className="font-semibold text-large text-[#B4B4B4]">{ownedCards.length}</div>
