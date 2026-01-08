@@ -27,6 +27,11 @@ import map1 from '@/assets/images/map-1.png';
 import naverMapIcon from '@/assets/images/icons/naver_map.png';
 import kakaoMapIcon from '@/assets/images/icons/kakao_map.png';
 import { useNavigate, useSearchParams } from 'react-router'
+import { Button } from '@/components/ui/button'
+import checkDarkIcon from '@/assets/images/icons/check_dark.png'
+import checkDarkCheckedIcon from '@/assets/images/icons/check_dark-checked.png'
+import addCircleDarkIcon from '@/assets/images/icons/add_circle_dark.png'
+import closeRoundDarkIcon from '@/assets/images/icons/close_round_dark.png'
 
 const spotCards = [
   {
@@ -112,6 +117,9 @@ export default function Search() {
   const [searchInput, setSearchInput] = useState("");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [currentSnapPoint, setCurrentSnapPoint] = useState(1);
+  const [isBookmarkEditSheetOpen, setIsBookmarkEditSheetOpen] = useState(false)
+  const [isBookmarkMemoVisible, setIsBookmarkMemoVisible] = useState(false)
+  const [isBookmarkGroupVisible, setIsBookmarkGroupVisible] = useState(false)
   const ref = useRef<SheetRef>(null);
   const [isDirectionSheetOpen, setIsDirectionSheetOpen] = useState(false);
   const navigate = useNavigate()
@@ -163,7 +171,7 @@ export default function Search() {
               <div className="rounded-full bg-[#EEEEEE] p-1.5">
                 <img src={callIcon} width="20" height="20" alt="" />
               </div>
-              <div className="rounded-full bg-[#EEEEEE] p-1.5">
+              <div className="rounded-full bg-[#EEEEEE] p-1.5" onClick={() => setIsBookmarkEditSheetOpen(true)}>
                 <img src={bookmarkIcon} width="20" height="20" alt="" />
               </div>
             </div>
@@ -305,9 +313,19 @@ export default function Search() {
                         <div className={`px-[18px] leading-none pt-4 ${currentSnapPoint === 3 ? 'mb-5' : 'mb-3.5'}`}>
                           <div className="flex items-center justify-between mb-1">
                             <div className="text-xl font-semibold">{result.name}</div>
-                            {/* <div className="rounded-full bg-[#EEEEEE] p-1.5">
-                              <img src={bookmarkIcon} width="20" height="20" alt="" />
-                            </div> */}
+                            {currentSnapPoint !== 3 && (
+                              <div className="flex items-center space-x-2.5">
+                                <button className="flex items-center justify-center space-x-1 w- p-1.5 bg-[#F4F4F4] rounded-full" onClick={() => setIsDirectionSheetOpen(true)}>
+                                  <img src={directionsIcon} width="20" height="20" alt="방향" />
+                                </button>
+                                <button className="flex items-center justify-center space-x-1 p-1.5 bg-[#F4F4F4] rounded-full">
+                                  <img src={callIcon} width="20" height="20" alt="전화" />
+                                </button>
+                                <button className="flex items-center justify-center space-x-1 p-1.5 bg-[#F4F4F4] rounded-full" onClick={() => setIsBookmarkEditSheetOpen(true)}>
+                                  <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
+                                </button>
+                              </div>
+                            )}
                           </div>
                           <div className="flex items-center space-x-1 font-medium text-[13px] mb-3">
                             <div>{result.category}</div>
@@ -325,20 +343,6 @@ export default function Search() {
                             </>
                           )}
                         </div>
-
-                        {currentSnapPoint !== 3 && (
-                          <div className="px-[18px] flex items-center space-x-2.5 mb-4">
-                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full" onClick={() => setIsDirectionSheetOpen(true)}>
-                              <img src={directionsIcon} width="20" height="20" alt="방향" />
-                            </button>
-                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                              <img src={callIcon} width="20" height="20" alt="전화" />
-                            </button>
-                            <button className="flex items-center justify-center space-x-1 w-[30px] h-[30px] bg-[#F4F4F4] rounded-full">
-                              <img src={bookmarkIcon} width="20" height="20" alt="북마크" />
-                            </button>
-                          </div>
-                        )}
 
                         <div className="px-[18px] flex items-center space-x-2 overflow-x-scroll mb-4">
                           {spotCards.map((card) => (
@@ -392,12 +396,12 @@ export default function Search() {
                 ) : (
                   // Expanded view showing all details
                   <div className="pb-8 divide-y divide-[#F4F4F4]">
-                    {currentResults.map((result) => (
-                      <div key={result.id} className="py-2">
-                        <div className="px-[18px] leading-none mb-4 pt-4">
+                    {currentResults.map((result, i) => (
+                      <div key={result.id} className={i === 0 && currentSnapPoint !== 3 ? 'pb-2' : 'py-2'}>
+                        <div className={`px-[18px] leading-none mb-4 ${i === 0 && currentSnapPoint !== 3 ? 'pt-0' : 'pt-4'}`}>
                           <div className="flex items-center justify-between mb-1">
                             <div className="text-xl font-semibold">{result.name}</div>
-                            <div className="rounded-full bg-[#EEEEEE] p-1.5">
+                            <div className="rounded-full bg-[#EEEEEE] p-1.5" onClick={() => setIsBookmarkEditSheetOpen(true)}>
                               <img src={bookmarkIcon} width="20" height="20" alt="" />
                             </div>
                           </div>
@@ -475,6 +479,127 @@ export default function Search() {
             </Sheet.Content>
           </Sheet.Container>
           <Sheet.Backdrop onClick={() => setIsDirectionSheetOpen(false)} />
+        </Sheet>
+
+        <Sheet
+          isOpen={isBookmarkEditSheetOpen}
+          onClose={() => {
+            setIsBookmarkEditSheetOpen(false)
+          }}
+        >
+          {isBookmarkGroupVisible ? (
+            <Sheet.Container className="max-h-[241px]">
+              <SheetHeader />
+              <Sheet.Content>
+                <div className="px-[18px] flex flex-col h-full">
+                  <div className="w-full flex items-center mb-[17px]">
+                    <div className="flex items-center justify-center mr-2.5 min-w-6">
+                      <img
+                        src={arrowLeftIcon}
+                        width="24"
+                        height="24"
+                        alt="뒤로가기"
+                        onClick={() => {
+                          setIsBookmarkGroupVisible(false);
+                        }}
+                      />
+                    </div>
+                    <h1 className="text-lg font-semibold">새 그룹 추가</h1>
+                  </div>
+                  <div className="mb-auto relative">
+                    <Input placeholder="그룹 이름을 입력해 주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                    <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
+                  </div>
+                  <Button
+                    className="mb-6"
+                    onClick={() => {
+                      setIsBookmarkGroupVisible(false);
+                      setIsBookmarkEditSheetOpen(false);
+                    }}
+                  >
+                    확인
+                  </Button>
+                </div>
+              </Sheet.Content>
+            </Sheet.Container>
+          ) : isBookmarkMemoVisible ? (
+            <Sheet.Container className="max-h-[241px]">
+              <SheetHeader />
+              <Sheet.Content>
+                <div className="px-[18px] flex flex-col h-full">
+                  <div className="w-full flex items-center mb-[17px]">
+                    <div className="flex items-center justify-center mr-2.5 min-w-6">
+                      <img
+                        src={arrowLeftIcon}
+                        width="24"
+                        height="24"
+                        alt="뒤로가기"
+                        onClick={() => {
+                          setIsBookmarkMemoVisible(false);
+                        }}
+                      />
+                    </div>
+                    <h1 className="text-lg font-semibold">CGV 건대입구</h1>
+                  </div>
+                  <div className="mb-auto relative">
+                    <Input placeholder="메모를 남겨주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                    <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
+                  </div>
+                  <Button
+                    className="mb-6"
+                    onClick={() => {
+                      setIsBookmarkMemoVisible(false);
+                      setIsBookmarkEditSheetOpen(false);
+                    }}
+                  >
+                    확인
+                  </Button>
+                </div>
+              </Sheet.Content>
+            </Sheet.Container>
+          )
+          : (
+            <Sheet.Container className="max-h-[369px]">
+              <SheetHeader />
+              <Sheet.Content>
+                <div className="border-b border-[#F4F4F4] flex items-center pb-[18px] px-[18px] mb-3">
+                  <img src={photo2} width="46" height="46" alt="장소 썸네일" className="mr-3.5 object-cover" />
+                  <div>
+                    <div className="text-lg font-semibold mb-[7px] leading-none">CGV 건대입구</div>
+                    <div className="text-[13px] text-[#5A5B64] leading-none">영화</div>
+                  </div>
+                </div>
+                <div className="px-[18px]">
+                  <Button variant="secondary" className="h-10 flex items-center justify-center mb-[22px]" onClick={() => setIsBookmarkGroupVisible(true)}>
+                    <img src={addCircleDarkIcon} width="16" height="16" alt="새 그룹 추가 아이콘" />
+                    <div className="font-medium text-sm">새 그룹 추가</div>
+                  </Button>
+                  <div className="mb-[23px] space-y-[19px]">
+                    <div className="flex items-center">
+                      <div className="font-medium mr-1.5">영화</div>
+                      <div className="font-semibold text-[#B4B4B4]">0</div>
+                      <img src={checkDarkCheckedIcon} width="20" height="20" alt="선택된 아이콘" className="ml-auto" />
+                    </div>
+                    <div className="flex items-center">
+                      <div className="font-medium mr-1.5">가고싶은 카페</div>
+                      <div className="font-semibold text-[#B4B4B4]">10</div>
+                      <img src={checkDarkIcon} width="20" height="20" alt="선택된 아이콘" className="ml-auto" />
+                    </div>
+                    <div className="flex items-center">
+                      <div className="font-medium mr-1.5">장보기</div>
+                      <div className="font-semibold text-[#B4B4B4]">8</div>
+                      <img src={checkDarkIcon} width="20" height="20" alt="선택된 아이콘" className="ml-auto" />
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Button variant="secondary" onClick={() => setIsBookmarkMemoVisible(true)} className="flex-1 leading-5">메모 추가</Button>
+                    <Button className="ml-[13px] flex-1 leading-5">확인</Button>
+                  </div>
+                </div>
+              </Sheet.Content>
+            </Sheet.Container>
+          )}
+          <Sheet.Backdrop onClick={() => setIsBookmarkEditSheetOpen(false)} />
         </Sheet>
       </div>
     </>

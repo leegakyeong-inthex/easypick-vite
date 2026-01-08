@@ -123,7 +123,7 @@ export default function MyCards() {
         <div className="pt-[30px] px-[18px] pb-3.5 flex items-center justify-between leading-8">
           <div className="flex items-center">
             <div className="mr-1.5 font-semibold text-lg">보유 중인 카드</div>
-            <div className="font-semibold text-large text-[#B4B4B4]">{ownedCards.length}</div>
+            <div className="font-semibold text-large text-[#B4B4B4]">{selectedPlace === '뷰티' ? 0 : ownedCards.length}</div>
           </div>
           {selectedPlace !== '전체' && (
             <Link to={`/search?near=${selectedPlace}`} className="flex items center space-x-[3px] px-2.5 py-[7px] rounded-full border border-[#EBEBEB]">
@@ -134,7 +134,7 @@ export default function MyCards() {
         </div>
         {selectedPlace === '뷰티' ? (
           <div className="flex-1 flex flex-col items-center justify-center mt-[166px]">
-            <div className="font-medium text-sm text-[#6D727A] mb-3.5">{selectedPlace} 혜택 카드를 전부 보고 싶다면?</div>
+            <div className="font-medium text-sm text-[#6D727A] mb-3.5">{selectedPlace} 혜택을 가진 카드가 없어요.</div>
             <Button className="size-fit py-[17.5px] px-6 font-medium text-sm">추천 카드 보러 가기</Button>
           </div>
         ) : (

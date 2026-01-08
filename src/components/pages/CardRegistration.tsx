@@ -405,7 +405,7 @@ export default function CardRegistration({ setIsVisible }: CardRegistrationProps
                 </div>
               </>
             )}
-            <Button className="w-full mb-[19px]">확인</Button>
+            <Button className={`w-full mb-[19px] ${getSelectedCards().length ? '' : 'bg-[#C3C3C3] pointer-events-none'}`}>확인</Button>
             <div
               className="underline font-semibold text-sm text-[#6D727A] text-center cursor-pointer"
               onClick={() => setIsOpen(true)}

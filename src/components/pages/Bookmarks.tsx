@@ -15,9 +15,6 @@ import photo1 from '@/assets/images/photo-1.png'
 import photo2 from '@/assets/images/photo-2.png'
 import grayDotIcon from '@/assets/images/icons/gray-dot.png'
 import kebabMenuIcon from '@/assets/images/icons/kebab_menu.png'
-import editIcon from '@/assets/images/icons/edit.png'
-import binIcon from '@/assets/images/icons/bin.png'
-import closeRoundIcon from '@/assets/images/icons/close_round.png'
 import checkDarkIcon from '@/assets/images/icons/check_dark.png'
 import checkDarkCheckedIcon from '@/assets/images/icons/check_dark-checked.png'
 import SheetHeader from "@/components/SheetHeader";
@@ -106,11 +103,13 @@ export default function Bookmarks() {
   const [isSortSheetOpen, setIsSortSheetOpen] = useState(false);
   const [isGroupEditSheetOpen, setIsGroupEditSheetOpen] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
+  const [isGroupAddVisible, setIsGroupAddVisible] = useState(false)
   const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
   const [isBookmarkDetailVisible, setIsBookmarkDetailVisible] = useState(false);
   const [isBookmarkEditSheetOpen, setIsBookmarkEditSheetOpen] = useState(false);
   const [isBookmarkEditVisible, setIsBookmarkEditVisible] = useState(false);
   const [isBookmarkMemoVisible, setIsBookmarkMemoVisible] = useState(false);
+  const [isBookmarkGroupVisible, setIsBookmarkGroupVisible] = useState(false)
 
   return (
     <>
@@ -195,9 +194,39 @@ export default function Bookmarks() {
                     확인
                   </Button>
                 </div>
+              ) : isGroupAddVisible ? (
+                <div className="px-[18px] flex flex-col h-full">
+                  <div className="w-full flex items-center mb-[17px]">
+                    <div className="flex items-center justify-center mr-2.5 min-w-6">
+                      <img
+                        src={arrowLeftIcon}
+                        width="24"
+                        height="24"
+                        alt="뒤로가기"
+                        onClick={() => {
+                          setIsGroupAddVisible(false);
+                        }}
+                      />
+                    </div>
+                    <h1 className="text-lg font-semibold">새 그룹 추가</h1>
+                  </div>
+                  <div className="mb-auto relative">
+                    <Input placeholder="그룹 이름을 입력해 주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                    <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
+                  </div>
+                  <Button
+                    className="mb-6"
+                    onClick={() => {
+                      setIsBookmarkGroupVisible(false);
+                      setIsBookmarkEditSheetOpen(false);
+                    }}
+                  >
+                    확인
+                  </Button>
+                </div>
               ) : (
                 <div className="px-[18px]">
-                  <Button variant="secondary" className="h-10 flex items-center justify-center mb-[17px]">
+                  <Button variant="secondary" className="h-10 flex items-center justify-center mb-[17px]" onClick={() => setIsGroupAddVisible(true)}>
                     <img src={addCircleDarkIcon} width="16" height="16" alt="새 그룹 추가 아이콘" />
                     <div className="font-medium text-sm">새 그룹 추가</div>
                   </Button>
@@ -307,30 +336,112 @@ export default function Bookmarks() {
               setIsBookmarkEditSheetOpen(false)
             }}
           >
-            {!isBookmarkEditVisible ? (
-              <Sheet.Container className="max-h-[163px]">
-                <Sheet.Header>
-                  <div className="flex justify-end items-center pl-[25px] pr-[18px] pt-[23px] pb-[9px]">
-                    <button onClick={() => setIsBookmarkEditSheetOpen(false)} className="text-[#999] text-2xl font-light">
-                      <img src={closeRoundIcon} width="24" height="24" alt="닫기" />
-                    </button>
-                  </div>
-                </Sheet.Header>
+            {isBookmarkGroupVisible ? (
+              <Sheet.Container className="max-h-[241px]">
+                <SheetHeader />
                 <Sheet.Content>
-                  <div className="px-[25px] pb-[13px]">
-                    <div className="text-base font-medium pb-3.5 flex items-center" onClick={() => setIsBookmarkEditVisible(true)}>
-                      <img src={editIcon} width="18" height="18" alt="수정 아이콘" className="mr-2.5" />
-                      <div>수정</div>
+                  <div className="px-[18px] flex flex-col h-full">
+                    <div className="w-full flex items-center mb-[17px]">
+                      <div className="flex items-center justify-center mr-2.5 min-w-6">
+                        <img
+                          src={arrowLeftIcon}
+                          width="24"
+                          height="24"
+                          alt="뒤로가기"
+                          onClick={() => {
+                            setIsBookmarkGroupVisible(false);
+                          }}
+                        />
+                      </div>
+                      <h1 className="text-lg font-semibold">새 그룹 추가</h1>
                     </div>
-                    <div className="text-base font-medium py-3.5 flex items-center">
-                      <img src={binIcon} width="18" height="18" alt="삭제 아이콘" className="mr-2.5" />
-                      <div className="text-[#FF5D4A]">삭제</div>
+                    <div className="mb-auto relative">
+                      <Input placeholder="그룹 이름을 입력해 주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                      <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
                     </div>
+                    <Button
+                      className="mb-6"
+                      onClick={() => {
+                        setIsBookmarkGroupVisible(false);
+                        setIsBookmarkEditSheetOpen(false);
+                      }}
+                    >
+                      확인
+                    </Button>
                   </div>
                 </Sheet.Content>
               </Sheet.Container>
-            )
-            : !isBookmarkMemoVisible ? (
+            ) : isBookmarkMemoVisible ? (
+              <Sheet.Container className="max-h-[241px]">
+                <SheetHeader />
+                <Sheet.Content>
+                  <div className="px-[18px] flex flex-col h-full">
+                    <div className="w-full flex items-center mb-[17px]">
+                      <div className="flex items-center justify-center mr-2.5 min-w-6">
+                        <img
+                          src={arrowLeftIcon}
+                          width="24"
+                          height="24"
+                          alt="뒤로가기"
+                          onClick={() => {
+                            setIsBookmarkMemoVisible(false);
+                          }}
+                        />
+                      </div>
+                      <h1 className="text-lg font-semibold">CGV 건대입구</h1>
+                    </div>
+                    <div className="mb-auto relative">
+                      <Input placeholder="메모를 남겨주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                      <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
+                    </div>
+                    <Button
+                      className="mb-6"
+                      onClick={() => {
+                        setIsBookmarkMemoVisible(false);
+                        setIsBookmarkEditSheetOpen(false);
+                      }}
+                    >
+                      확인
+                    </Button>
+                  </div>
+                </Sheet.Content>
+              </Sheet.Container>
+            ) : isBookmarkEditVisible ? (
+              <Sheet.Container className="max-h-[241px]">
+                <SheetHeader />
+                <Sheet.Content>
+                  <div className="px-[18px] flex flex-col h-full">
+                    <div className="w-full flex items-center mb-[17px]">
+                      <div className="flex items-center justify-center mr-2.5 min-w-6">
+                        <img
+                          src={arrowLeftIcon}
+                          width="24"
+                          height="24"
+                          alt="뒤로가기"
+                          onClick={() => {
+                            setIsBookmarkGroupVisible(false);
+                          }}
+                        />
+                      </div>
+                      <h1 className="text-lg font-semibold">새 그룹 추가</h1>
+                    </div>
+                    <div className="mb-auto relative">
+                      <Input placeholder="그룹 이름을 입력해 주세요" className="border-none bg-[#F3F3F3] font-medium text-sm" />
+                      <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
+                    </div>
+                    <Button
+                      className="mb-6"
+                      onClick={() => {
+                        setIsBookmarkGroupVisible(false);
+                        setIsBookmarkEditSheetOpen(false);
+                      }}
+                    >
+                      확인
+                    </Button>
+                  </div>
+                </Sheet.Content>
+              </Sheet.Container>
+            ) : (
               <Sheet.Container className="max-h-[369px]">
                 <SheetHeader />
                 <Sheet.Content>
@@ -342,7 +453,7 @@ export default function Bookmarks() {
                     </div>
                   </div>
                   <div className="px-[18px]">
-                    <Button variant="secondary" className="h-10 flex items-center justify-center mb-[22px]">
+                    <Button variant="secondary" className="h-10 flex items-center justify-center mb-[22px]" onClick={() => setIsBookmarkGroupVisible(true)}>
                       <img src={addCircleDarkIcon} width="16" height="16" alt="새 그룹 추가 아이콘" />
                       <div className="font-medium text-sm">새 그룹 추가</div>
                     </Button>
@@ -367,43 +478,6 @@ export default function Bookmarks() {
                       <Button variant="secondary" onClick={() => setIsBookmarkMemoVisible(true)} className="flex-1 leading-5">메모 추가</Button>
                       <Button className="ml-[13px] flex-1 leading-5">확인</Button>
                     </div>
-                  </div>
-                </Sheet.Content>
-              </Sheet.Container>
-            )
-            : (
-              <Sheet.Container className="max-h-[241px]">
-                <SheetHeader />
-                <Sheet.Content>
-                  <div className="px-[18px] flex flex-col h-full">
-                    <div className="w-full flex items-center mb-[17px]">
-                      <div className="flex items-center justify-center mr-2.5 min-w-6">
-                        <img
-                          src={arrowLeftIcon}
-                          width="24"
-                          height="24"
-                          alt="뒤로가기"
-                          onClick={() => {
-                            setIsBookmarkMemoVisible(false);
-                          }}
-                        />
-                      </div>
-                      <h1 className="text-lg font-semibold">CGV 건대입구</h1>
-                    </div>
-                    <div className="mb-auto relative">
-                      <Input placeholder="메모를 입력하세요" value="서비스 친절함 / 팝콘이 맛있음" className="border-none bg-[#F3F3F3] font-medium text-sm" />
-                      <img src={closeRoundDarkIcon} width="18" height="18" alt="지우기" className="absolute top-[16px] right-[18px]" />
-                    </div>
-                    <Button
-                      className="mb-6"
-                      onClick={() => {
-                        setIsBookmarkMemoVisible(false);
-                        setIsBookmarkEditVisible(false);
-                        setIsBookmarkEditSheetOpen(false);
-                      }}
-                    >
-                      확인
-                    </Button>
                   </div>
                 </Sheet.Content>
               </Sheet.Container>
