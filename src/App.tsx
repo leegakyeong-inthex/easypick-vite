@@ -232,7 +232,7 @@ export default function Home() {
   }, [])
 
   return (
-    <AnimatePresence mode="wait">
+    <>
       <img src={map1} width="375" height="auto" alt="배경 이미지" className="absolute top-0 left-0 w-full h-full object-cover" />
 
       <div className="absolute top-0 w-full h-[60px] rounded-b-2xl flex justify-center bg-white" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
@@ -935,27 +935,6 @@ export default function Home() {
         <Sheet.Backdrop onClick={() => setIsBetterCardSheetOpen(false)} />
       </Sheet>
 
-      {isNotificationsVisible && (
-        <motion.div
-          className="absolute inset-0 bg-white z-20"
-          key="notifications"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.3, ease: [0, 0, 0.58, 1] }
-          }}
-          exit={{
-            opacity: 0,
-            y: -10,
-            transition: { duration: 0.3, ease: [0.42, 0, 1, 1] }
-          }}
-          // transition={{ duration: 0.25, ease: "easeOut" }}
-        >
-          <Notifications setIsVisible={setIsNotificationsVisible} />
-        </motion.div>
-      )}
-
       <Sheet
         ref={ref}
         isOpen={isDirectionSheetOpen}
@@ -1111,6 +1090,29 @@ export default function Home() {
         )}
         <Sheet.Backdrop onClick={() => setIsBookmarkEditSheetOpen(false)} />
       </Sheet>
-    </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {isNotificationsVisible && (
+          <motion.div
+            className="absolute inset-0 bg-white z-20"
+            key="notifications"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.3, ease: [0, 0, 0.58, 1] }
+            }}
+            exit={{
+              opacity: 0,
+              y: -10,
+              transition: { duration: 0.3, ease: [0.42, 0, 1, 1] }
+            }}
+            // transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <Notifications setIsVisible={setIsNotificationsVisible} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
