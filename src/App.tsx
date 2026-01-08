@@ -32,6 +32,7 @@ import checkDarkIcon from '@/assets/images/icons/check_dark.png'
 import checkDarkCheckedIcon from '@/assets/images/icons/check_dark-checked.png'
 import closeRoundDarkIcon from '@/assets/images/icons/close_round_dark.png'
 import addCircleDarkIcon from '@/assets/images/icons/add_circle_dark.png'
+import refreshIcon from '@/assets/images/icons/refresh.png'
 
 // Card and photo imports
 import card1 from '@/assets/images/card-1.png';
@@ -263,21 +264,27 @@ export default function Home() {
       </div>
 
       {selectedKeyword && (
-        <div className="absolute top-0 w-full h-[60px] bg-white flex items-center" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
-          <img
-            src={arrowLeftIcon}
-            width="24"
-            height="24"
-            alt="뒤로가기"
-            className="ml-[17px]"
-            onClick={() => {
-              setSelectedKeyword('')
-              setIsKeywordSheetOpen(false)
-              setIsOpen(true)
-            }}
-          />
-          <div className="font-bold text-xl ml-3">{selectedKeyword.substring(1)}</div>
-        </div>
+        <>
+          <div className="absolute top-0 w-full h-[60px] bg-white flex items-center" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+            <img
+              src={arrowLeftIcon}
+              width="24"
+              height="24"
+              alt="뒤로가기"
+              className="ml-[17px]"
+              onClick={() => {
+                setSelectedKeyword('')
+                setIsKeywordSheetOpen(false)
+                setIsOpen(true)
+              }}
+            />
+            <div className="font-bold text-xl ml-3">{selectedKeyword.substring(1)}</div>
+          </div>
+          <div className="absolute top-[60px] flex items-center rounded-full mt-3 left-[50%] translate-x-[-50%] py-[7.5px] pl-3.5 pr-2.5 bg-[#0068FF]" style={{ boxShadow: '0px 2px 10px 0px rgba(0, 0, 0, 0.2)' }}>
+            <div className="text-sm font-medium text-white">이 지역 검색하기</div>
+            <img src={refreshIcon} width="20" height="20" alt="새로고침" className="ml-0.5" />
+          </div>
+        </>
       )}
 
       <Sheet
